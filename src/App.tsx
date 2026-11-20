@@ -29,11 +29,19 @@ function Intro({ onStart }: { onStart: () => void }) {
           <br />
           나에게 맞는 일자리를 찾아봐요.
         </p>
-        <ul className="intro-feat">
-          <li>💡 이해하기 · 어려운 정보를 쉽게</li>
-          <li>🎯 연습하기 · 자기소개서와 면접</li>
-          <li>🔎 활용하기 · 지원 정보와 경험 나눔</li>
-        </ul>
+        <div className="intro-feat">
+          {[
+            ['💡', '이해하기', '어려운 정보를\n쉽게'],
+            ['🎯', '연습하기', '자기소개서와\n면접'],
+            ['🔎', '활용하기', '지원 정보와\n경험 나눔'],
+          ].map(([ic, t, d]) => (
+            <div className="feat" key={t}>
+              <span className="feat-ic">{ic}</span>
+              <b>{t}</b>
+              <small>{d}</small>
+            </div>
+          ))}
+        </div>
       </div>
       <button className="btn big" onClick={onStart}>
         줄넘기와 대화 시작하기
@@ -45,7 +53,9 @@ function Intro({ onStart }: { onStart: () => void }) {
 
 export default function App() {
   const [started, setStarted] = useState(false)
-  const { msgs, typing, pending, run, answer } = useChat(flows)
+  const apiRef = useRef<Api | null>(null)
+  const { msgs, typing, pending, run, answer } = useChat(flows, apiRef)
+  const [page, setPage] = useState<ReactNode | null>(null)
   const [sheet, setSheet] = useState<{ title: string; node: ReactNode } | null>(null)
   const [toast, setToast] = useState<string | null>(null)
   const [draft, setDraft] = useState('')
@@ -57,6 +67,7 @@ export default function App() {
       run,
       sheet: (title, node) => setSheet({ title, node }),
       closeSheet: () => setSheet(null),
+      page: (node) => setPage(node),
       toast: (m) => {
         setToast(m)
         setTimeout(() => setToast(null), 1800)
@@ -64,6 +75,7 @@ export default function App() {
     }),
     [run],
   )
+  apiRef.current = api
 
   useEffect(() => {
     if (started) run('home', undefined, { clear: true })
@@ -110,7 +122,7 @@ export default function App() {
               <button className="icon-btn" onClick={() => api.sheet('메뉴', <Menu onPick={() => setSheet(null)} />)} aria-label="메뉴">
                 ☰
               </button>
-              <button className="icon-btn" onClick={() => run('home', undefined, { clear: true })} aria-label="새 대화">
+              <button className="icon-btn" onClick={() => { setPage(null); run('home', undefined, { clear: true }) }} aria-label="새 대화">
                 ↺
               </button>
             </header>
@@ -175,6 +187,7 @@ export default function App() {
           </>
         )}
 
+        {started && page && <div className="page">{page}</div>}
         {sheet && (
           <div className="ov" onClick={(e) => e.target === e.currentTarget && setSheet(null)}>
             <div className="sheet" role="dialog" aria-modal="true" aria-label={sheet.title}>
