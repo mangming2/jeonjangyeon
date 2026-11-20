@@ -131,7 +131,7 @@ export function Menu({ onPick }: { onPick?: () => void }) {
                 className="mi"
                 onClick={() => {
                   onPick?.()
-                  api.run(id, undefined, { echo: `${ic} ${t}` })
+                  api.run(id, undefined, { echo: `${ic} ${t}`, clear: true })
                 }}
               >
                 <span className="ic">{ic}</span>

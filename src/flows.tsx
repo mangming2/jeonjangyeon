@@ -1,11 +1,11 @@
 import type { Ctx, Flow, Reply } from './chat'
 import { CLQ, DOCS, EXS, IQ, SC, SUP, TERMS, detect, genCover, jo, type FlowId } from './data'
 import {
-  Board, ContractDoc, CoverResult, CustomDoc, DocResult, IvFeedback, JobsPage, Menu, Note, QuizCard,
+  Board, ContractDoc, CoverResult, CustomDoc, DocResult, IvFeedback, JobsPage, Note, QuizCard,
   Step, SupportCard, SupportEasy, WorryResult, resetContract,
 } from './widgets'
 
-const HOME: Reply = { label: '🏠 처음으로', value: 'home' }
+const HOME: Reply = { label: '🏠 메뉴로', value: 'home' }
 const FLOWS = new Set<string>(['home', 'worry', 'docs', 'cover', 'interview', 'contract', 'support', 'jobs', 'board'])
 
 /** 마지막 선택지: 값이 flow id면 그 흐름으로 이동, 아니면 값을 돌려줌 */
@@ -42,20 +42,7 @@ function pickTextFile(): Promise<string | null> {
 
 export const flows: Record<FlowId, Flow> = {
   async home(c) {
-    await c.say(
-      <>
-        안녕하세요! 저는 <b>줄넘기</b>예요 🪢
-        <br />
-        취업 준비, 한 걸음씩 함께해요.
-      </>,
-    )
-    await c.say(<>무엇을 도와줄까요? 아래에서 고르거나, 고민을 편하게 적어 주세요.</>)
-    await c.say(<Menu />, { wide: true, delay: 250 })
-    await next(
-      c,
-      EXS.slice(0, 3).map((x) => ({ label: x, value: 'ex:' + x })),
-      { placeholder: '고민을 편하게 적어 주세요' },
-    ).then((v) => v && c.run('worry', v.slice(3)))
+    c.api.home()
   },
 
   async worry(c, arg) {

@@ -83,7 +83,16 @@ export function useChat(flows: Record<FlowId, Flow>, apiRef: { current: Api | nu
     [push],
   )
 
-  return { msgs, typing, pending, run, answer }
+  /** 진행 중인 대화 흐름 멈추기 (메뉴로 돌아갈 때) */
+  const stop = useCallback(() => {
+    token.current++
+    waiter.current?.rej(ABORT)
+    waiter.current = null
+    setPending(null)
+    setTyping(false)
+  }, [])
+
+  return { msgs, typing, pending, run, answer, stop }
 }
 
 /* 말풍선 안의 위젯(버튼, 바텀시트)이 쓰는 API */
@@ -93,6 +102,8 @@ export type Api = {
   closeSheet: () => void
   /** 대화창 위에 전체 화면 페이지 열기 (null이면 닫기) */
   page: (node: ReactNode | null) => void
+  /** 첫 목록(메뉴) 화면으로 */
+  home: () => void
   toast: (m: string) => void
 }
 export const ApiCtx = createContext<Api>(null as unknown as Api)

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { ApiCtx, useChat, type Api } from './chat'
+import { ApiCtx, useApi, useChat, type Api } from './chat'
 import { flows } from './flows'
+import { EXS } from './data'
 import { Menu } from './widgets'
 
 const Logo = ({ size = 120 }: { size?: number }) => (
@@ -44,17 +45,67 @@ function Intro({ onStart }: { onStart: () => void }) {
         </div>
       </div>
       <button className="btn big" onClick={onStart}>
-        줄넘기와 대화 시작하기
+        시작하기
       </button>
       <p className="sm center">체험용 프로토타입이에요. 실제 AI가 연결되어 있지 않아요.</p>
     </div>
   )
 }
 
+function Home() {
+  const api = useApi()
+  const [q, setQ] = useState('')
+  const ask = (t: string) => {
+    if (!t.trim()) return
+    api.run('worry', t.trim(), { echo: t.trim(), clear: true })
+  }
+  return (
+    <div className="home">
+      <header className="top">
+        <Avatar />
+        <div className="top-t">
+          <b>줄넘기</b>
+          <small>취업 준비 도우미</small>
+        </div>
+      </header>
+      <div className="home-body">
+        <section className="hero">
+          <h2>
+            안녕하세요! 👋
+            <br />
+            무엇을 도와줄까요?
+          </h2>
+          <form
+            className="composer"
+            onSubmit={(e) => {
+              e.preventDefault()
+              ask(q)
+            }}
+          >
+            <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="고민을 편하게 적어 주세요" aria-label="고민 입력" />
+            <button className="send" disabled={!q.trim()} aria-label="보내기">
+              ↑
+            </button>
+          </form>
+          <div className="chips">
+            {EXS.slice(0, 3).map((x) => (
+              <button key={x} className="chip" onClick={() => ask(x)}>
+                {x}
+              </button>
+            ))}
+          </div>
+        </section>
+        <Menu />
+        <p className="sm center">체험용 프로토타입이에요. 실제 AI가 연결되어 있지 않아요.</p>
+      </div>
+    </div>
+  )
+}
+
 export default function App() {
-  const [started, setStarted] = useState(false)
+  const [view, setView] = useState<'intro' | 'home' | 'chat'>('intro')
   const apiRef = useRef<Api | null>(null)
-  const { msgs, typing, pending, run, answer } = useChat(flows, apiRef)
+  const { msgs, typing, pending, run, answer, stop } = useChat(flows, apiRef)
   const [page, setPage] = useState<ReactNode | null>(null)
   const [sheet, setSheet] = useState<{ title: string; node: ReactNode } | null>(null)
   const [toast, setToast] = useState<string | null>(null)
@@ -64,7 +115,16 @@ export default function App() {
 
   const api: Api = useMemo(
     () => ({
-      run,
+      run: (id, arg, opts) => {
+        setView('chat')
+        run(id, arg, opts)
+      },
+      home: () => {
+        stop()
+        setPage(null)
+        setSheet(null)
+        setView('home')
+      },
       sheet: (title, node) => setSheet({ title, node }),
       closeSheet: () => setSheet(null),
       page: (node) => setPage(node),
@@ -73,13 +133,9 @@ export default function App() {
         setTimeout(() => setToast(null), 1800)
       },
     }),
-    [run],
+    [run, stop],
   )
   apiRef.current = api
-
-  useEffect(() => {
-    if (started) run('home', undefined, { clear: true })
-  }, [started, run])
 
   useEffect(() => {
     const last = msgs[msgs.length - 1]
@@ -109,22 +165,21 @@ export default function App() {
   return (
     <ApiCtx.Provider value={api}>
       <div id="app">
-        {!started ? (
-          <Intro onStart={() => setStarted(true)} />
+        {view === 'intro' ? (
+          <Intro onStart={() => setView('home')} />
+        ) : view === 'home' ? (
+          <Home />
         ) : (
           <>
             <header className="top">
+              <button className="icon-btn" onClick={api.home} aria-label="메뉴로">
+                ←
+              </button>
               <Avatar />
               <div className="top-t">
                 <b>줄넘기</b>
                 <small>{typing ? '입력 중…' : '취업 준비 도우미'}</small>
               </div>
-              <button className="icon-btn" onClick={() => api.sheet('메뉴', <Menu onPick={() => setSheet(null)} />)} aria-label="메뉴">
-                ☰
-              </button>
-              <button className="icon-btn" onClick={() => { setPage(null); run('home', undefined, { clear: true }) }} aria-label="새 대화">
-                ↺
-              </button>
             </header>
 
             <main className="thread" aria-live="polite">
@@ -187,7 +242,7 @@ export default function App() {
           </>
         )}
 
-        {started && page && <div className="page">{page}</div>}
+        {view === 'chat' && page && <div className="page">{page}</div>}
         {sheet && (
           <div className="ov" onClick={(e) => e.target === e.currentTarget && setSheet(null)}>
             <div className="sheet" role="dialog" aria-modal="true" aria-label={sheet.title}>
