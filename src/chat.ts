@@ -1,0 +1,92 @@
+import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from 'react'
+import type { FlowId } from './data'
+
+export type Reply = { label: string; value: string; primary?: boolean }
+export type Ask = { replies?: Reply[]; input?: { placeholder: string; multiline?: boolean } }
+export type Answer = { kind: 'reply'; value: string } | { kind: 'text'; text: string }
+export type Msg = { id: number; from: 'bot' | 'user' | 'divider'; node: ReactNode; wide?: boolean }
+
+export interface Ctx {
+  /** 봇 말풍선 (타이핑 표시 후) */
+  say(node: ReactNode, opts?: { wide?: boolean; delay?: number }): Promise<void>
+  /** 빠른 답장/입력을 기다림. 답하면 사용자 말풍선이 자동으로 붙음 */
+  ask(a: Ask): Promise<Answer>
+  run(id: FlowId, arg?: unknown): void
+}
+export type Flow = (c: Ctx, arg?: unknown) => Promise<void>
+
+const ABORT = Symbol('abort')
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+export function useChat(flows: Record<FlowId, Flow>) {
+  const [msgs, setMsgs] = useState<Msg[]>([])
+  const [typing, setTyping] = useState(false)
+  const [pending, setPending] = useState<Ask | null>(null)
+  const token = useRef(0)
+  const nextId = useRef(0)
+  const waiter = useRef<{ res: (a: Answer) => void; rej: (e: unknown) => void } | null>(null)
+
+  const push = useCallback((m: Omit<Msg, 'id'>) => setMsgs((p) => [...p, { ...m, id: ++nextId.current }]), [])
+
+  const run = useCallback(
+    (id: FlowId, arg?: unknown, opts?: { echo?: string; clear?: boolean }) => {
+      const t = ++token.current
+      waiter.current?.rej(ABORT)
+      waiter.current = null
+      setPending(null)
+      setTyping(false)
+      if (opts?.clear) setMsgs([])
+      if (opts?.echo) push({ from: 'user', node: opts.echo })
+
+      const guard = () => {
+        if (token.current !== t) throw ABORT
+      }
+      const ctx: Ctx = {
+        async say(node, o) {
+          guard()
+          setTyping(true)
+          await sleep(o?.delay ?? 420)
+          guard()
+          setTyping(false)
+          push({ from: 'bot', node, wide: o?.wide })
+        },
+        ask(a) {
+          guard()
+          setPending(a)
+          return new Promise<Answer>((res, rej) => {
+            waiter.current = { res, rej }
+          })
+        },
+        run: (nid, narg) => run(nid, narg),
+      }
+      flows[id](ctx, arg).catch((e) => {
+        if (e !== ABORT) console.error(e)
+      })
+    },
+    [flows, push],
+  )
+
+  const answer = useCallback(
+    (a: Answer, echo: string) => {
+      const w = waiter.current
+      if (!w) return
+      waiter.current = null
+      setPending(null)
+      push({ from: 'user', node: echo })
+      w.res(a)
+    },
+    [push],
+  )
+
+  return { msgs, typing, pending, run, answer }
+}
+
+/* 말풍선 안의 위젯(버튼, 바텀시트)이 쓰는 API */
+export type Api = {
+  run: (id: FlowId, arg?: unknown, opts?: { echo?: string; clear?: boolean }) => void
+  sheet: (title: string, node: ReactNode) => void
+  closeSheet: () => void
+  toast: (m: string) => void
+}
+export const ApiCtx = createContext<Api>(null as unknown as Api)
+export const useApi = () => useContext(ApiCtx)
