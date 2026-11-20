@@ -12,13 +12,15 @@ export interface Ctx {
   /** 빠른 답장/입력을 기다림. 답하면 사용자 말풍선이 자동으로 붙음 */
   ask(a: Ask): Promise<Answer>
   run(id: FlowId, arg?: unknown): void
+  /** 화면 API (바텀시트, 전체 화면 페이지 등) */
+  api: Api
 }
 export type Flow = (c: Ctx, arg?: unknown) => Promise<void>
 
 const ABORT = Symbol('abort')
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
-export function useChat(flows: Record<FlowId, Flow>) {
+export function useChat(flows: Record<FlowId, Flow>, apiRef: { current: Api | null }) {
   const [msgs, setMsgs] = useState<Msg[]>([])
   const [typing, setTyping] = useState(false)
   const [pending, setPending] = useState<Ask | null>(null)
@@ -58,12 +60,15 @@ export function useChat(flows: Record<FlowId, Flow>) {
           })
         },
         run: (nid, narg) => run(nid, narg),
+        get api() {
+          return apiRef.current!
+        },
       }
       flows[id](ctx, arg).catch((e) => {
         if (e !== ABORT) console.error(e)
       })
     },
-    [flows, push],
+    [flows, push, apiRef],
   )
 
   const answer = useCallback(
@@ -86,6 +91,8 @@ export type Api = {
   run: (id: FlowId, arg?: unknown, opts?: { echo?: string; clear?: boolean }) => void
   sheet: (title: string, node: ReactNode) => void
   closeSheet: () => void
+  /** 대화창 위에 전체 화면 페이지 열기 (null이면 닫기) */
+  page: (node: ReactNode | null) => void
   toast: (m: string) => void
 }
 export const ApiCtx = createContext<Api>(null as unknown as Api)

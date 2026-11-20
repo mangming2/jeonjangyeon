@@ -376,25 +376,90 @@ export function SupportEasy({ i }: { i: number }) {
   )
 }
 
-/* ===== 취업 정보 ===== */
-export function JobsCard() {
+/* ===== 취업 정보 (전체 화면 페이지) ===== */
+export function JobsPage() {
   const api = useApi()
-  return (
-    <div className="stack">
-      <Note>예시 공고예요. 실제 공고가 아니에요.</Note>
-      {JOBS.map(([t, b], i) => (
-        <div className="job" key={t}>
+  const [sel, setSel] = useState<number | null>(null)
+  const close = () => api.page(null)
+  const easy = (i: number) => {
+    close()
+    api.run('doc', 'job' + i, { echo: `"${JOBS[i][0]}" 쉽게 이해하기` })
+  }
+  const head = (title: string, onBack: () => void) => (
+    <header className="page-top">
+      <button className="icon-btn" onClick={onBack} aria-label="뒤로">
+        ←
+      </button>
+      <b>{title}</b>
+      <button className="icon-btn" onClick={close} aria-label="닫기">
+        ✕
+      </button>
+    </header>
+  )
+
+  if (sel !== null) {
+    const [t, b] = JOBS[sel]
+    return (
+      <>
+        {head('공고 상세', () => setSel(null))}
+        <div className="page-body">
           <span className="tag">🟡 예시 공고</span>
-          <b>{t}</b>
-          <p>{b}</p>
-          <button className="btn" onClick={() => api.run('doc', 'job' + i, { echo: `"${t}" 쉽게 이해하기` })}>
+          <h2>{t}</h2>
+          <div className="job">
+            <p>{b}</p>
+          </div>
+          <Note>예시 공고예요. 실제 공고가 아니에요.</Note>
+          <button className="btn big" onClick={() => easy(sel)}>
             쉽게 이해하기 →
           </button>
+          <button className="btn o" onClick={() => setSel(null)}>
+            목록으로
+          </button>
         </div>
-      ))}
-      <Blk t="🧑‍💼 직무 소개 · 사무보조">서류를 정리하고 문서 작성을 도와요.</Blk>
-      <Blk t="📦 직무 소개 · 매장 관리 보조">물건을 진열하고, 남은 물건(재고)을 확인해요.</Blk>
-    </div>
+      </>
+    )
+  }
+  return (
+    <>
+      {head('취업 정보', close)}
+      <div className="page-body">
+        <p className="sub">채용 공고와 직무를 살펴봐요.</p>
+        <Note>예시 공고예요. 실제 공고가 아니에요.</Note>
+        <h3>📢 채용 공고</h3>
+        {JOBS.map(([t, b], i) => (
+          <div className="job" key={t}>
+            <span className="tag">🟡 예시 공고</span>
+            <b>{t}</b>
+            <p>{b}</p>
+            <div className="row">
+              <button className="btn o" onClick={() => setSel(i)}>
+                상세 보기
+              </button>
+              <button className="btn" onClick={() => easy(i)}>
+                쉽게 이해하기
+              </button>
+            </div>
+          </div>
+        ))}
+        <h3>🧑‍💼 직무 소개</h3>
+        <Blk t="사무보조">서류를 정리하고 문서 작성을 도와요.</Blk>
+        <Blk t="매장 관리 보조">물건을 진열하고, 남은 물건(재고)을 확인해요.</Blk>
+        <h3>🎤 준비 정보</h3>
+        <Blk t="면접 준비">
+          예상 질문에 미리 답해 보면 편해요.
+          <button
+            className="btn"
+            style={{ marginTop: 8 }}
+            onClick={() => {
+              close()
+              api.run('interview', undefined, { echo: '🎤 면접 연습하기' })
+            }}
+          >
+            면접 연습하기
+          </button>
+        </Blk>
+      </div>
+    </>
   )
 }
 

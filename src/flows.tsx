@@ -1,7 +1,7 @@
 import type { Ctx, Flow, Reply } from './chat'
 import { CLQ, DOCS, EXS, IQ, SC, SUP, TERMS, detect, genCover, jo, type FlowId } from './data'
 import {
-  Board, ContractDoc, CoverResult, CustomDoc, DocResult, IvFeedback, JobsCard, Menu, Note, QuizCard,
+  Board, ContractDoc, CoverResult, CustomDoc, DocResult, IvFeedback, JobsPage, Menu, Note, QuizCard,
   Step, SupportCard, SupportEasy, WorryResult, resetContract,
 } from './widgets'
 
@@ -299,9 +299,13 @@ export const flows: Record<FlowId, Flow> = {
   },
 
   async jobs(c) {
-    await c.say('채용 공고와 직무를 살펴봐요 📢')
-    await c.say(<JobsCard />, { wide: true })
-    await next(c, [{ label: '🎤 면접 연습하기', value: 'interview' }, { label: '💬 고민 정리하기', value: 'worry' }, HOME])
+    c.api.page(<JobsPage />)
+    await c.say('취업 정보 화면을 열었어요 📢 공고를 둘러보고 돌아오면 이어서 도와줄게요.')
+    for (;;) {
+      const v = await next(c, [{ label: '📢 취업 정보 다시 열기', value: 'reopen', primary: true }, { label: '🎤 면접 연습하기', value: 'interview' }, { label: '💬 고민 정리하기', value: 'worry' }, HOME])
+      if (v !== 'reopen') return
+      c.api.page(<JobsPage />)
+    }
   },
 
   async board(c) {
