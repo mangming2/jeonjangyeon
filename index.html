@@ -1,27 +1,277 @@
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#fff8e8" />
-    <title>줄넘기 - 취업 준비, 한 걸음씩 함께해요</title>
-    <meta name="description" content="어려운 취업 정보를 쉽게 이해하고, 자기소개서와 면접을 직접 연습해요. 대화로 함께하는 취업 준비 도우미 줄넘기." />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="줄넘기" />
-    <meta property="og:url" content="https://julnumgi.vercel.app/" />
-    <meta property="og:title" content="줄넘기 - 취업 준비, 한 걸음씩 함께해요" />
-    <meta property="og:description" content="어려운 취업 정보를 쉽게 이해하고, 자기소개서와 면접을 직접 연습해요." />
-    <meta property="og:image" content="https://julnumgi.vercel.app/og.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="줄넘기 - 취업 준비, 한 걸음씩 함께해요" />
-    <meta property="og:locale" content="ko_KR" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <link rel="icon" href="/favicon.svg" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>줄넘기 - 취업 준비, 한 걸음씩 함께해요</title><meta name="theme-color" content="#fff8e8"><meta name="description" content="어려운 취업 정보를 쉽게 이해하고, 자기소개서와 면접을 직접 연습해요. 취업 준비 도우미 줄넘기."><meta property="og:type" content="website"><meta property="og:site_name" content="줄넘기"><meta property="og:url" content="https://julnumgi.vercel.app/"><meta property="og:title" content="줄넘기 - 취업 준비, 한 걸음씩 함께해요"><meta property="og:description" content="어려운 취업 정보를 쉽게 이해하고, 자기소개서와 면접을 직접 연습해요."><meta property="og:image" content="https://julnumgi.vercel.app/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="ko_KR"><meta name="twitter:card" content="summary_large_image"><link rel="icon" href="/favicon.svg">
+<style>
+:root{--g:#3fa56f;--gd:#2c7d52;--cr:#fff8e8;--mt:#e4f5ec;--bg:#eceae0;--card:#fff;--tx:#22312a;--sub:#5d6f65;--bd:#d6e4da;--wn:#fff1cf;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1511;--card:#1c2822;--cr:#26261c;--mt:#1d3328;--tx:#e8f2ec;--sub:#a3b8ab;--bd:#2f4337;--wn:#3a3217;color-scheme:dark}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{background:var(--bg);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;color:var(--tx);font-size:17px;line-height:1.6}
+#app{max-width:440px;height:100%;margin:0 auto;background:var(--cr);display:flex;flex-direction:column;position:relative;box-shadow:0 0 30px #0002}
+#top{display:flex;align-items:center;gap:8px;padding:10px 12px;min-height:52px;background:var(--cr)}#top b{font-size:18px}
+#main{flex:1;overflow-y:auto;padding:6px 16px 24px}
+#nav{display:flex;background:var(--card);border-top:1px solid var(--bd)}#nav button{flex:1;border:0;background:none;padding:8px 0 10px;font-size:14px;color:var(--sub);font-weight:600;cursor:pointer}#nav button span{display:block;font-size:24px}#nav button.on{color:var(--gd)}#nav button.on span{transform:scale(1.15)}
+h2{font-size:23px;margin:10px 0 4px;line-height:1.35}h3{font-size:18px;margin:16px 0 8px}p{margin:6px 0}.sub{color:var(--sub);font-size:16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:16px;margin:10px 0}
+.nc{display:flex;gap:14px;align-items:center;cursor:pointer;text-align:left;width:100%;font:inherit;color:inherit}.nc:active{background:var(--mt)}.nc .ic{font-size:34px;background:var(--mt);border-radius:16px;width:58px;height:58px;display:flex;align-items:center;justify-content:center;flex:none}.nc b{display:block;font-size:18px}.nc small{color:var(--sub);font-size:15px;line-height:1.4;display:block}
+button{font:inherit;color:inherit}.big{display:block;width:100%;background:var(--g);color:#fff;border:0;border-radius:18px;padding:16px;font-size:19px;font-weight:700;margin:14px 0;cursor:pointer}.big:active{background:var(--gd)}.big.o{background:var(--card);color:var(--gd);border:2px solid var(--g)}
+.opt{display:block;width:100%;text-align:left;background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:14px;margin:8px 0;cursor:pointer;font-size:17px}.opt:active,.opt.sel{border-color:var(--g);background:var(--mt)}
+.opt.ok{border-color:var(--g);background:var(--mt)}.opt.no{border-color:#e0a050;background:var(--wn)}
+input,textarea{width:100%;font:inherit;color:inherit;background:var(--card);border:2px solid var(--bd);border-radius:14px;padding:12px;margin:6px 0}textarea{min-height:90px;resize:vertical}
+.chip{display:inline-block;border:1.5px solid var(--g);color:var(--gd);background:var(--card);border-radius:20px;padding:6px 14px;margin:3px 3px 3px 0;font-size:15px;cursor:pointer}.chip.on{background:var(--g);color:#fff}
+.tag{display:inline-block;background:var(--wn);border-radius:10px;padding:3px 10px;font-size:13px;font-weight:700}
+.note{background:var(--wn);border-radius:14px;padding:10px 14px;font-size:14px;margin:10px 0}
+.bub{background:var(--mt);border-radius:18px 18px 18px 4px;padding:12px 14px;margin:8px 0;max-width:92%}.me{background:var(--g);color:#fff;border-radius:18px 18px 4px 18px;margin-left:auto;width:fit-content}
+.blk{border-left:6px solid var(--g);border-radius:14px}.blk h4{margin:0 0 6px;font-size:17px;color:var(--gd)}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:10px 0;cursor:pointer;border-bottom:1px dashed var(--bd)}.ck i{flex:none;width:26px;height:26px;border:2px solid var(--g);border-radius:8px;display:flex;align-items:center;justify-content:center;font-style:normal;color:#fff}.ck.d i{background:var(--g)}.ck.d span{text-decoration:line-through;color:var(--sub)}
+.prog{height:8px;background:var(--bd);border-radius:6px;overflow:hidden;margin:8px 0}.prog div{height:100%;background:var(--g);transition:.3s}
+.hp{display:inline-flex;width:26px;height:26px;border-radius:50%;background:var(--g);color:#fff;font-weight:800;align-items:center;justify-content:center;border:0;cursor:pointer;font-size:15px;margin-left:6px;flex:none}
+u.t{text-decoration:underline dotted var(--gd) 2px;text-underline-offset:4px;color:var(--gd);font-weight:700;cursor:pointer;background:var(--mt);border-radius:4px;padding:0 3px}
+.ov{position:absolute;inset:0;background:#0007;display:flex;align-items:flex-end;z-index:9}.ov>div{background:var(--card);width:100%;border-radius:24px 24px 0 0;padding:20px;max-height:80%;overflow:auto}
+.intro{text-align:center;padding-top:16px}.logo{font-size:64px}.intro h1{font-size:40px;margin:0;color:var(--gd)}.slo{font-weight:700;margin:4px 0 14px}
+.row{display:flex;gap:8px}.row>*{flex:1}.sm{font-size:14px;color:var(--sub)}.pill{font-size:13px;color:var(--gd);font-weight:700}
+.doc{background:#fffef7;color:#222;border:1px solid #ccc;border-radius:8px;padding:16px;line-height:2.1;font-size:16px}
+.big{background:var(--gd)}.big:active{background:#1f5d3c}.hp{background:var(--gd)}.chip.on{background:var(--gd)}u.t.seen{background:var(--gd);color:#fff}
+button:focus-visible,.ck:focus-visible,.chip:focus-visible,u.t:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #f0a020;outline-offset:2px}
+.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:#22312a;color:#fff;padding:10px 18px;border-radius:20px;z-index:20;font-size:15px}
+#sbar{background:var(--mt);padding:6px 10px 8px;border-bottom:1px solid var(--bd);font-size:13px}#sbar .dots{display:flex;gap:4px;margin:4px 0}#sbar .dots button{flex:1;border:0;border-radius:8px;padding:7px 0;background:var(--card);font-weight:700;cursor:pointer}#sbar .dots button.on{background:var(--gd);color:#fff}.row2{display:flex;gap:6px;margin-top:6px}.sb{flex:1;border:1.5px solid var(--g);background:var(--card);border-radius:10px;padding:7px 6px;font-size:13px;cursor:pointer}.sb:disabled{opacity:.4}#sbar select{flex:1.4;min-width:0;border:1.5px solid var(--g);border-radius:10px;padding:6px;background:var(--card);color:var(--tx);font-size:13px}.smn{margin-top:6px;color:var(--sub);font-size:12px}
+#app.cap{height:auto;min-height:100%}#app.cap #main{overflow:visible;flex:none}
+</style></head><body><div id="app"><div id="top"></div><div id="main"></div><div id="nav" hidden></div></div>
+<script>
+const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const st=(k,d)=>{try{const v=localStorage.getItem('jn_'+k);return v?JSON.parse(v):d}catch(e){return d}};
+const sv=(k,v)=>{try{localStorage.setItem('jn_'+k,JSON.stringify(v))}catch(e){}};
+const $=id=>document.getElementById(id);
+const DEMO='';
+/* ===== AI 연결 지점: 나중에 서버(프록시)를 거쳐 Claude API 등을 연결하세요. API 키는 프론트엔드에 넣지 마세요. ===== */
+async function callAI(kind,payload){return null}/* null이면 아래 DATA의 예시를 사용 */
+/* ===== DATA ===== */
+const JQ=[
+{q:'어떤 상황인지 조금 더 알려주세요.',o:['상사가 일을 많이 시켜요.','일을 어떻게 해야 할지 모르겠어요.','정해진 시간 안에 끝내기 어려워요.','취업 준비가 막막해요.']},
+{q:'이 일에 대해 다른 사람에게 이야기해 본 적이 있나요?',o:['네, 이야기했어요.','아니요, 아직 이야기하지 않았어요.','어떻게 이야기해야 할지 모르겠어요.']},
+{q:'가장 힘든 점은 무엇인가요?',o:['언제까지 해야 하는지 몰라요.','무엇부터 해야 할지 모르겠어요.','거절하거나 부탁하기 어려워요.']}];
+const TERMS=[['수습기간','일을 잘할 수 있는지 살펴보는 처음 기간이에요.','예: 3개월 수습이면, 처음 3개월 동안 적응하며 일해요.'],['소정근로시간','계약서에 적힌, 하루·일주일 동안 일하기로 한 시간이에요.','예: 하루 8시간, 일주일 40시간.'],['주휴일','일주일에 한 번 쉬는 날이에요. 조건을 채우면 이 날에도 급여가 계산돼요.','예: 월~금 일했다면 일요일이 주휴일일 수 있어요.'],['세전 급여','세금과 보험료를 빼기 전 금액이에요.','예: 세전 220만 원이면 통장에는 그보다 적게 들어와요.'],['휴게시간','일하다가 쉬는 시간이에요. 근무시간에 포함되지 않아요.','예: 12:00~13:00 점심시간.'],['지급일','급여를 받는 날이에요.','예: 매월 25일이면 매달 25일에 들어와요.']];
+const DOCS={contract:{n:'근로계약서(예시)',what:'회사와 내가 어떤 조건으로 일할지 약속한 문서예요.',cards:[['💰','급여','한 달에 세전 220만 원을 받아요.'],['🕘','근무시간','월요일부터 금요일까지, 하루 8시간 일해요.'],['📅','계약기간','2026년 12월 1일부터 일하기로 했어요.'],['🔍','추가로 확인','휴게시간이 어떻게 정해져 있는지 확인해 보세요.']],terms:[0,3,2,4],checks:['급여를 확인했나요?','근무시간을 확인했나요?','휴게시간을 확인했나요?','이해되지 않는 내용을 표시했나요?'],qz:{q:'세전 급여 220만 원은 무슨 뜻일까요?',o:['세금 등을 빼기 전 금액','통장에 꼭 220만 원이 들어와요','보너스가 포함된 금액'],a:0,e:'세전은 세금과 보험료를 빼기 전이라는 뜻이에요. 실제로 받는 돈은 더 적을 수 있어요.'},prac:'연습 탭에서 가상 근로계약서를 직접 읽어 볼까요?'},
+job:{n:'채용 공고(예시)',what:'회사가 어떤 사람을 뽑고 싶은지 알리는 글이에요.',cards:[['🧑‍💼','하는 일','서류 정리와 문서 작성을 도와요.'],['✅','필요한 조건','학력 무관, 컴퓨터 기본 사용 가능.'],['⭐','우대사항','관련 경험이 있으면 도움이 돼요. 없어도 지원할 수 있어요.'],['🕘','근무','주 5일, 오전 9시~오후 6시.']],terms:[0,1],checks:['하는 일을 이해했나요?','내가 가진 조건을 확인했나요?','급여와 근무시간을 확인했나요?','궁금한 점을 적어 뒀나요?'],qz:{q:'우대사항은 무엇일까요?',o:['꼭 있어야 하는 조건','있으면 도움이 되는 조건','회사의 휴가 일정'],a:1,e:'우대사항은 꼭 필요한 조건이 아니라, 있으면 좋은 점이에요.'},prac:'면접 질문을 연습해 볼까요?'}};
+const CLQ=[['어떤 일에 지원하나요?','예: 사무보조','지원하는 일의 이름이에요. 채용 공고 제목에서 찾을 수 있어요.'],['해 본 경험이 있나요? (알바, 수업, 활동 등)','예: 편의점 알바, 학교 동아리','일이 아니어도 괜찮아요. 맡았던 역할이면 모두 경험이에요.'],['내가 잘하는 점은 무엇인가요?','예: 약속을 잘 지켜요','강점은 남들보다 잘하거나, 꾸준히 해 온 점이에요. 짧아도 좋아요.'],['왜 이 일을 하고 싶나요?','예: 정리하는 일이 잘 맞아요','지원 동기는 이 일에 관심 갖게 된 이유예요.']];
+const IQ=[{q:'간단히 자기소개 해 주세요.',h:'이름, 지원한 이유, 장점을 짧게 말하면 돼요.',o:[['안녕하세요, 저는 ○○입니다. 꼼꼼한 점이 장점이고, 이 일에 관심이 있어 지원했습니다.',2],['그냥 지원했어요.',0],['잘 모르겠어요.',0]],ex:'안녕하세요, 저는 ○○입니다. 맡은 일을 끝까지 하는 것이 장점입니다. 문서 정리 일에 관심이 있어 지원했습니다.'},
+{q:'이 일을 왜 하고 싶나요?',h:'지원 동기는 이 일을 하고 싶은 이유예요. 경험과 연결하면 좋아요.',o:[['정리하는 것을 좋아하고, 알바에서도 서류를 정리해 본 경험이 있어서 지원했습니다.',2],['집이 가까워서요.',1],['돈이 필요해서요.',1]],ex:'정리하는 일을 좋아합니다. 알바에서 서류를 정리했던 경험을 살려 도움이 되고 싶습니다.'},
+{q:'일하다가 모르는 것이 생기면 어떻게 하나요?',h:'모르는 것을 물어보는 것은 좋은 태도예요.',o:[['먼저 스스로 찾아보고, 그래도 어려우면 선배에게 물어보겠습니다.',2],['혼자 해결하려고 해요.',1],['그냥 넘어가요.',0]],ex:'먼저 스스로 찾아본 뒤, 어려우면 바로 선배에게 질문하겠습니다. 정확하게 일하는 것이 중요하기 때문입니다.'}];
+const SUP=[['국민내일배움카드(예시)','🎓','직업훈련','직업훈련 비용 일부를 지원받는 제도 예시예요.','일할 수 있는 나이의 구직자 등 (조건 확인 필요)','고용센터 또는 온라인 신청 (확인 필요)','신분증 등 (확인 필요)','https://www.work24.go.kr'],['청년 취업 지원 프로그램(예시)','💼','취업 지원','면접 준비, 상담 등을 받는 프로그램 예시예요.','구직 중인 청년 (확인 필요)','지역 센터 문의 (확인 필요)','확인 필요',''],['복지 서비스 안내(예시)','🤝','복지 서비스','필요한 복지 서비스를 안내받는 예시예요.','거주지에 따라 달라요','주민센터 상담 (확인 필요)','확인 필요',''],['주거·생활 지원(예시)','🏠','주거 및 생활','살 곳과 생활비 관련 지원 예시예요.','조건이 서로 달라요','주민센터 또는 관련 기관 (확인 필요)','확인 필요','']];
+const JOBS=[['사무보조 신입 채용(예시)','서류 정리와 문서 작성 보조. 학력 무관, 컴퓨터 기본 사용. 우대: 관련 경험. 주 5일 09~18시.'],['매장 관리 보조(예시)','물품 진열과 재고 확인. 성실한 분 환영. 주 5일 근무.']];
+const POS0=[['취업 준비','처음 이력서 쓴 날','이력서 쓰는 게 막막했어요. 한 줄씩 나눠서 쓰니까 덜 힘들었어요.',3],['면접 경험','면접 후기','떨렸지만 천천히 말했더니 괜찮았어요. 모르는 질문은 다시 물어봤어요.',5],['직장생활','출근 첫 주','모르는 건 메모하고 점심시간 전에 한 번에 물어봤어요.',7],['업무 적응','일 순서 정하기','할 일을 종이에 적고 하나씩 지웠어요. 마음이 편했어요.',4],['나만의 팁','알람 활용','출근 준비 순서를 알람으로 해 뒀더니 늦지 않아요.',6]].map(a=>({c:a[0],t:a[1],b:a[2],l:a[3],cm:[],liked:0}));
+/* ===== 상태·라우터 ===== */
+let S=[{v:'intro'}],tab='u',J={t:'',a:[],s:0},CL={s:-1,a:[]},IV={i:-1},BF='전체',POS=st('posts',POS0),BK={};
+const go=(v,p)=>{S.push({v,p});draw()},root=t=>{tab=t;S=[{v:t+'0'}];draw()};
+function back(){const c=S[S.length-1];if(c.v==='ujob'&&J.s>0){J.s--;J.a.length=Math.max(0,J.s-1);return draw()}if(c.v==='pcl'&&CL.s>=0){CL.s--;return draw()}if(S.length>1)S.pop();draw()}
+const ic=(i,t,d,f)=>`<button class="card nc" onclick="${f}"><span class="ic">${i}</span><span><b>${t}</b><small>${d}</small></span></button>`;
+let modal=(t,b)=>{const o=document.createElement('div');o.className='ov';o.onclick=e=>{if(e.target===o)o.remove()};o.innerHTML=`<div><h3 style="margin-top:0">${t}</h3>${b}<button class="big" onclick="this.closest('.ov').remove()">확인했어요</button></div>`;$('app').appendChild(o)};
+const help=(t,b)=>`<button class="hp" aria-label="도움말" onclick='modal(${JSON.stringify(E(t))},${JSON.stringify("<p>"+E(b)+"</p>")})'>?</button>`;
+let ck=(k,items)=>{const d=st('ck_'+k,[]);return items.map((x,i)=>`<div class="ck ${d.includes(i)?'d':''}" onclick="tg('${k}',${i})"><i>${d.includes(i)?'✓':''}</i><span>${E(x)}</span></div>`).join('')};
+function tg(k,i){let d=st('ck_'+k,[]);d=d.includes(i)?d.filter(x=>x!==i):[...d,i];sv('ck_'+k,d);draw(true)}
+const QZ={};
+function quiz(id,q){QZ[id]=q;return `<div class="card" id="z_${id}"><b>📝 확인해 봐요</b><p>${q.q}</p>${q.o.map((o,i)=>`<button class="opt" onclick="ans('${id}',${i})">${o}</button>`).join('')}<div id="zf_${id}"></div></div>`}
+function ans(id,i){const q=QZ[id],ok=i===q.a;[...document.querySelectorAll('#z_'+id+' .opt')].forEach((b,j)=>{b.className='opt'+(j===q.a?' ok':j===i?' no':'')});$('zf_'+id).innerHTML=`<div class="note">${ok?'👏 맞아요! ':'괜찮아요, 다시 알아봐요. '}${q.e}</div>`}
+/* ===== 뷰 ===== */
+const V={
+intro:()=>`<div class="intro"><div class="logo">🪢</div><h1>줄넘기</h1><p class="slo">어려운 세상의 문턱을 함께 넘어요</p><p>어려운 말과 복잡한 상황, 혼자 고민하지 마세요.<br>줄넘기와 함께 쉽게 이해하고, 직접 연습하고, 하나씩 해결해 봐요.</p>
+${ic('💡','① 이해하기','어려운 정보와 상황을 쉽게 알아봐요.','')}${ic('🎯','② 연습하기','실제 상황처럼 직접 연습해요.','')}${ic('🔎','③ 활용하기','필요한 정보를 찾고 경험을 나눠요.','')}
+<button class="big" onclick="root('u')">줄넘기 시작하기 →</button><p class="sm">체험용 프로토타입이에요.</p></div>`,
+u0:()=>`<h2>어떤 점이 어려우신가요?</h2><p class="sub">혼자 고민하지 않아도 괜찮아요. 함께 하나씩 알아봐요.</p>${ic('💼','취업 및 직장생활','어려운 상황을 이야기하면 함께 정리해요.',"J={t:'',a:[],s:0};go('ujob')")}${ic('📄','계약 및 서류','근로계약서, 채용 공고를 쉽게 풀어 드려요.',"go('udoc0')")}`,
+ujob(){const L=['1','2','3'];let h=`<div class="prog"><div style="width:${J.s/4*100}%"></div></div>`;
+if(J.s===0)return h+`<h2>어떤 어려움이 있나요?</h2><p class="sub">짧게 써도 괜찮아요. 아래 예시를 눌러도 돼요.</p>${['상사가 일을 너무 많이 시켜요.','면접이 너무 떨려요.'].map(x=>`<span class="chip" onclick="$('jt').value='${x}'">${x}</span>`).join('')}<textarea id="jt" placeholder="여기에 입력해요">${E(J.t)}</textarea><button class="big" onclick="J.t=$('jt').value.trim()||'일이 어려워요.';J.s=1;draw()">다음 →</button>`;
+if(J.s<=3){const q=JQ[J.s-1];let t=`<div class="bub me">${E(J.t)}</div>`;J.a.forEach((a,i)=>t+=`<div class="bub">${JQ[i].q}</div><div class="bub me">${E(a)}</div>`);return h+t+`<div class="bub">${q.q} <small>(${J.s}/3)</small></div>${q.o.map((o,i)=>`<button class="opt" onclick="jA(${i})">${o}</button>`).join('')}<input id="jo" placeholder="직접 입력할게요"><button class="big o" onclick="jA(-1)">직접 입력으로 답하기</button>`}
+const a=J.a,talk=a[1]||'',hard=a[2]||'';const nc=talk.includes('않')||talk.includes('몰라');
+return h+`<h2>정리했어요 ✨</h2>${DEMO}
+<div class="card blk"><h4>① 지금 상황</h4>${E(J.t)}</div><div class="card blk"><h4>② 어려운 점</h4>${E(a[0])}<br>${E(hard)}</div>
+<div class="card blk"><h4>③ 확인할 내용</h4>• 마감 시간<br>• 어떤 일이 더 중요한지<br>• 도움이 필요한 부분</div>
+<div class="card blk"><h4>④ 이렇게 해 보세요</h4>${ck('job',['지금 하고 있는 일을 정리해요.','마감 시간을 물어봐요.','어떤 일을 먼저 할지 확인해요.',nc?'말할 내용을 미리 적어 봐요.':'필요하면 도움을 요청해요.'])}</div>
+<div class="card blk"><h4>⑤ 이렇게 말해 볼 수 있어요</h4>"지금 하고 있는 업무가 있는데, 어떤 일을 먼저 하면 좋을까요?"</div>
+${quiz('jq',{q:'새로운 일을 부탁받았을 때 가장 먼저 확인하면 좋은 것은?',o:['마감 시간과 우선순위','동료의 점심 메뉴','회사 건물의 층수'],a:0,e:'마감 시간과 우선순위를 알면 무엇부터 할지 정할 수 있어요.'})}
+<button class="big" onclick="IV={i:-1};tab='p';S=[{v:'p0'},{v:'pint'}];draw()">이 상황 직접 연습해 보기 →</button><button class="big o" onclick="J={t:'',a:[],s:0};draw()">다른 이야기 하기</button><p class="sm">AI는 대신 판단하지 않아요. 선택은 내가 해요.</p>`},
+udoc0:()=>`<h2>어떤 문서를 이해하고 싶나요?</h2><p class="sub">근로계약서, 채용 공고를 쉽게 풀어 드려요.</p>${ic('📄','예시 근로계약서 보기','근로계약서의 중요한 내용을 알아봐요.',"go('udoc',{k:'contract'})")}${ic('📢','예시 채용 공고 보기','채용 공고의 중요한 내용을 알아봐요.',"go('udoc',{k:'job0'})")}
+<h3>내 문서 올리기</h3><div class="row"><button class="big o" onclick="$('ph').click()">📷 사진</button><button class="big o" onclick="$('fl').click()">📁 파일</button></div><button class="big o" style="margin-top:0" onclick="$('tx').style.display='block'">✍️ 내용 직접 입력</button>
+<input type="file" id="ph" accept="image/*" hidden onchange="modal('사진 올리기','<p>사진 글자 읽기는 아직 연결되지 않았어요. 예시 문서로 체험해 주세요.</p>')"><input type="file" id="fl" accept=".txt,text/plain" hidden onchange="rf(this)">
+<div id="tx" style="display:none"><textarea id="tt" placeholder="문서 내용을 붙여 넣어요"></textarea><button class="big" onclick="go('udoc',{k:'custom',text:$('tt').value})">쉽게 풀어보기</button></div><p class="sm">🔒 올린 내용은 서버로 보내거나 저장하지 않아요.</p>`,
+udoc(p){const d=DOCS[p.k];if(!d){const tx=p.text||'';const f=TERMS.filter(t=>tx.includes(t[0].replace('세전 ','')));return DEMO+`<h2>내가 넣은 문서</h2><div class="doc">${E(tx.slice(0,800))||'(내용 없음)'}</div><h3>어려운 말이 있나요?</h3>${f.length?f.map(t=>`<div class="card"><b>${t[0]}</b><p>${t[1]}</p></div>`).join(''):'<p class="sub">체험용에서는 몇 가지 용어만 찾아요. 예시 문서를 눌러 보세요.</p>'}<p class="note">내용이 안전한지는 AI가 판단하지 않아요. 걱정되면 주변 전문가에게 확인해요.</p>`}
+return `<h2>${d.n}</h2>${DEMO}<div class="card blk"><h4>이 문서는 무엇인가요?</h4>${d.what}</div><h3>중요한 내용</h3>${d.cards.map(c=>`<div class="card"><b>${c[0]} ${c[1]}</b><p>${c[2]}</p></div>`).join('')}
+<h3>어려운 말 풀이</h3>${d.terms.map(i=>`<div class="card"><b>${TERMS[i][0]}</b><p>${TERMS[i][1]}</p></div>`).join('')}
+<h3>체크리스트</h3><div class="card">${ck('d'+p.k,d.checks)}</div>
+<div class="row"><button class="big o" onclick="modal('다시 설명','<p>${d.what} 천천히 한 가지씩 읽어요. 모르는 말은 눌러서 확인해요.</p>')">다시 설명해 줘</button><button class="big o" onclick="modal('예시로 알려줘','<p>${TERMS[d.terms[0]][2]}</p>')">예시로 알려줘</button></div>${quiz('d'+p.k,d.qz)}
+<button class="big" onclick="${p.k==='contract'?"tab='p';S=[{v:'p0'},{v:'pcon'}];draw()":"tab='p';S=[{v:'p0'},{v:'pint'}];IV={i:-1};draw()"}">${d.prac} →</button><p class="note">법적 효력이나 계약의 안전성은 AI가 확정하지 않아요.</p>`},
+p0:()=>`<h2>직접 연습해 볼까요?</h2><p class="sub">실수해도 괜찮아요. 여러 번 해 보면 익숙해져요.</p>${ic('✍️','자기소개서','질문에 답하며 한 편을 만들어 봐요.',"CL={s:-1,a:[]};go('pcl')")}${ic('🎤','면접','예상 질문에 답해 봐요.',"IV={i:-1};go('pint')")}${ic('📑','가상의 근로계약서 이해','모르는 단어를 눌러 보세요.',"go('pcon')")}`,
+pcl(){const n=CLQ.length;if(CL.s<0)return `<h2>자기소개서 쓰기</h2><div class="card">자기소개서는 나를 소개하는 글이에요.<br>① 지원하는 일 ② 경험 ③ 잘하는 점 ④ 지원 이유를 차례로 쓰면 돼요.</div><button class="big" onclick="CL.s=0;draw()">시작하기 →</button>`;
+if(CL.s<n){const q=CLQ[CL.s];return `<div class="prog"><div style="width:${CL.s/n*100}%"></div></div><h2>${q[0]}${help('도움말',q[2])}</h2><textarea id="ci" placeholder="${q[1]}">${E(CL.a[CL.s]||'')}</textarea><button class="big" onclick="CL.a[CL.s]=$('ci').value.trim()||'(아직 못 정했어요)';CL.s++;draw()">다음 →</button>`}
+const a=CL.a;return `<h2>예시가 만들어졌어요 ✨</h2>${DEMO}<div class="card doc">저는 ${E(a[0])}에 지원한 지원자입니다. ${E(a[1])}을(를) 하며 맡은 일을 해 본 경험이 있습니다. 저는 ${E(a[2])}라는 점이 강점입니다. ${E(a[3])}라는 이유로 이 일을 하고 싶어 지원했습니다. 맡은 일을 끝까지 책임지고 하겠습니다.</div><p class="sub">내 말투로 고쳐 보세요. 그대로 내지 않아도 괜찮아요.</p><button class="big" onclick="CL={s:-1,a:[]};draw()">다시 쓰기</button><button class="big o" onclick="IV={i:-1};go('pint')">면접 연습하러 가기</button>`},
+pint(){const n=IQ.length;if(IV.i<0)return `<h2>면접 연습</h2><div class="card">면접은 회사 사람과 짧게 대화하는 시간이에요.<br>정답은 하나가 아니에요. 천천히, 내 말로 답하면 돼요.</div><button class="big" onclick="IV.i=0;IV.f=null;draw()">시작하기 →</button>`;
+if(IV.i>=n)return `<h2>수고했어요 👏</h2><div class="card">${n}개 질문에 모두 답했어요. 다시 해 보면 더 편해져요.</div><button class="big" onclick="IV={i:0};draw()">다시 연습하기</button><button class="big o" onclick="root('k')">활용 탭 보기</button>`;
+const q=IQ[IV.i];let h=`<div class="prog"><div style="width:${IV.i/n*100}%"></div></div><div class="bub">🎤 ${q.q}${help('도움말',q.h)}</div>`;
+if(IV.f)return h+`<div class="bub me">${E(IV.f.t)}</div><div class="card blk"><h4>잘한 점</h4>${IV.f.r>=1?'질문에 맞게 대답했어요.':'대답해 준 것만으로도 좋아요.'}</div><div class="card blk"><h4>더 생각해 볼 점</h4>${IV.f.r>=2?'경험을 하나 더하면 더 좋아요.':'이유나 경험을 한 문장 더하면 좋아요.'}</div><div class="card blk"><h4>이렇게 말할 수도 있어요</h4>${q.ex}</div><p class="sm">다른 좋은 답도 많아요.</p><button class="big" onclick="IV.i++;IV.f=null;draw()">다음 질문 →</button>`;
+return h+q.o.map((o,i)=>`<button class="opt" onclick="iA(${i})">${o[0]}</button>`).join('')+`<textarea id="ii" placeholder="직접 답해 볼래요"></textarea><button class="big o" onclick="iA(-1)">내 답변 보내기</button>`},
+pcon:()=>`<h2>가상 근로계약서 읽기</h2>${DEMO}<p class="sub">밑줄 친 말을 눌러 보세요.</p><div class="doc"><b>근로계약서(가상)</b><br>1. 근로기간: 2026.12.01부터 (<u class="t" onclick="tm(0)">수습기간</u> 3개월)<br>2. 근무장소: 서울 ○○ 사무실<br>3. <u class="t" onclick="tm(1)">소정근로시간</u>: 09:00~18:00 (<u class="t" onclick="tm(4)">휴게시간</u> 12:00~13:00)<br>4. 근무일 / <u class="t" onclick="tm(2)">주휴일</u>: 월~금 / 일요일<br>5. 임금: 월 2,200,000원 (<u class="t" onclick="tm(3)">세전 급여</u>)<br>6. <u class="t" onclick="tm(5)">지급일</u>: 매월 25일</div>
+<h3>확인해 봐요</h3>${quiz('c1',{q:'급여는 언제 받나요?',o:['매월 25일','매주 금요일','계약 마지막 날'],a:0,e:'지급일이 매월 25일이라고 적혀 있어요.'})}${quiz('c2',{q:'휴게시간은 언제인가요?',o:['09:00~10:00','12:00~13:00','18:00 이후'],a:1,e:'12:00~13:00가 휴게시간이에요.'})}`,
+k0:()=>`<h2>필요한 정보를 찾아봐요</h2><p class="sub">지원 정보부터 다른 사람의 경험까지 한곳에서 확인해요.</p>${ic('🏛️','지원 정보','지원 제도와 신청 방법을 알아봐요.',"go('ksup')")}${ic('📢','취업 정보','채용 공고와 직무를 살펴봐요.',"go('kjob')")}${ic('💬','경험 나눔','다른 사람의 경험을 읽고 나눠요.',"go('kbd')")}`,
+ksup:()=>`<h2>지원 정보</h2><div class="note">⚠️ 아래는 예시 정보예요. 실제 신청 전에 공식 기관에서 꼭 확인하세요.</div>${SUP.map((s,i)=>ic(s[1],s[0],s[2],`go('ksupd',{i:${i}})`)).join('')}`,
+ksupd(p){const s=SUP[p.i];return `<h2>${s[0]}</h2><span class="tag">예시 정보</span><div class="card"><b>도움 내용</b><p>${s[3]}</p><b>신청 대상</b><p>${s[4]}</p><b>신청 방법</b><p>${s[5]}</p><b>준비 서류</b><p>${s[6]}</p><b>공식 링크</b><p>${s[7]?`<a href="${s[7]}" target="_blank" rel="noopener">${s[7]}</a>`:'공식 홈페이지 확인 필요'}</p><b>최종 확인일</b><p>확인 전</p></div><button class="big" onclick="tab='u';S=[{v:'u0'},{v:'udoc',p:{k:'custom',text:${JSON.stringify(E(s[0]+': '+s[3]+' 대상: '+s[4]+' 방법: '+s[5])).replace(/"/g,"'")}}}];draw()">쉽게 이해하기</button>`},
+kjob:()=>`<h2>취업 정보</h2><h3>채용 공고</h3>${JOBS.map((j,i)=>`<div class="card"><b>${j[0]}</b><p>${j[1]}</p><div class="row"><button class="big o" onclick="go('kjobd',{i:${i}})">상세 보기</button><button class="big" onclick="tab='u';S=[{v:'u0'},{v:'udoc',p:{k:'job'}}];draw()">쉽게 이해하기</button></div></div>`).join('')}<h3>직무 소개</h3><div class="card"><b>사무보조</b><p>서류를 정리하고 문서 작성을 도와요.</p></div><h3>준비 정보</h3><div class="card"><b>면접 준비</b><p>예상 질문에 미리 답해 보면 편해요.</p><button class="big" onclick="tab='p';S=[{v:'p0'},{v:'pint'}];IV={i:-1};draw()">면접 연습하기</button></div>`,
+kjobd:p=>`<h2>${JOBS[p.i][0]}</h2><div class="card">${JOBS[p.i][1]}</div><button class="big" onclick="tab='u';S=[{v:'u0'},{v:'udoc',p:{k:'job'}}];draw()">쉽게 이해하기</button>`,
+kbd(){const cats=['전체','취업 준비','면접 경험','직장생활','업무 적응','나만의 팁'];return `<h2>경험 나눔</h2><div class="note">개인의 경험이며 모든 상황에 적용되는 정답은 아닙니다.</div>${cats.map(c=>`<span class="chip ${BF===c?'on':''}" onclick="BF='${c}';draw(true)">${c}</span>`).join('')}${POS.map((p,i)=>({p,i})).filter(x=>BF==='전체'||x.p.c===BF).map(x=>`<button class="card nc" onclick="go('kpost',{i:${x.i}})"><span><span class="pill">${x.p.c}</span><b style="display:block">${E(x.p.t)}</b><small>${E(x.p.b.slice(0,40))}… ♥${x.p.l} 💬${x.p.cm.length}</small></span></button>`).join('')}<button class="big" onclick="go('kw')">✏️ 글 쓰기</button>`},
+kpost(p){const x=POS[p.i];return `<span class="pill">${x.c}</span><h2>${E(x.t)}</h2><div class="card">${E(x.b)}</div><p class="sm">개인의 경험이며 정답은 아니에요.</p><div class="row"><button class="big o" onclick="lk(${p.i})">${x.liked?'♥':'♡'} 공감 ${x.l}</button><button class="big o" onclick="modal('신고','<p>신고가 접수되었다고 가정해요. 실제 서비스에서는 운영자가 검토해요.</p>')">🚩 신고</button></div><h3>댓글 ${x.cm.length}</h3>${x.cm.map(c=>`<div class="bub">${E(c)}</div>`).join('')}<input id="cm" placeholder="따뜻한 댓글을 남겨요"><button class="big" onclick="ac(${p.i})">댓글 달기</button>`},
+kw:()=>`<h2>경험 쓰기</h2><div class="note">🔒 이름, 전화번호, 회사 이름 같은 개인정보는 쓰지 마세요.</div><div>${['취업 준비','면접 경험','직장생활','업무 적응','나만의 팁'].map((c,i)=>`<span class="chip ${i?'':'on'}" onclick="BK.c='${c}';document.querySelectorAll('#main .chip').forEach(e=>e.classList.toggle('on',e===this))">${c}</span>`).join('')}</div><input id="wt" placeholder="제목"><textarea id="wb" placeholder="짧게 써도 괜찮아요"></textarea><button class="big" onclick="sw()">올리기</button>`};
+/* ===== 핸들러 ===== */
+function jA(i){let v=i>=0?JQ[J.s-1].o[i]:$('jo').value.trim();if(!v)return;J.a[J.s-1]=v;J.s++;draw()}
+function iA(i){const q=IQ[IV.i];if(i>=0)IV.f={t:q.o[i][0],r:q.o[i][1]};else{const t=$('ii').value.trim();if(!t)return;IV.f={t,r:t.length>25?2:t.length>8?1:0}}draw()}
+function tm(i){const t=TERMS[i];modal(t[0],`<p>${t[1]}</p><p class="note">${t[2]}</p>`)}
+function rf(el){const f=el.files[0];if(!f)return;const r=new FileReader();r.onload=()=>go('udoc',{k:'custom',text:String(r.result)});r.readAsText(f)}
+function lk(i){const x=POS[i];x.liked=!x.liked;x.l+=x.liked?1:-1;sv('posts',POS);draw(true)}
+function ac(i){const v=$('cm').value.trim();if(!v)return;POS[i].cm.push(v);sv('posts',POS);draw(true)}
+function sw(){const t=$('wt').value.trim(),b=$('wb').value.trim();if(!t||!b)return modal('잠깐!','<p>제목과 내용을 적어 주세요.</p>');POS.unshift({c:BK.c||'취업 준비',t,b,l:0,cm:[],liked:0});sv('posts',POS);BF='전체';S.pop();draw()}
+/* ===== 렌더 ===== */
+function draw(keep){const c=S[S.length-1],m=$('main'),y=m.scrollTop;
+const names={u0:'이해',p0:'연습',k0:'활용'};
+$('top').innerHTML=S.length>1&&c.v!=='intro'?`<button class="hp" style="width:40px;height:40px;font-size:20px;margin:0" onclick="back()" aria-label="뒤로">←</button><b>줄넘기</b>`:`<b>🪢 줄넘기</b>`;
+$('nav').hidden=c.v==='intro';$('nav').innerHTML=[['u','💡','이해'],['p','🎯','연습'],['k','🔎','활용']].map(a=>`<button class="${tab===a[0]?'on':''}" onclick="root('${a[0]}')"><span>${a[1]}</span>${a[2]}</button>`).join('');
+m.innerHTML=V[c.v](c.p||{});m.scrollTop=keep?y:0}
+/* ===== v2: 분기 데모, 연결 수정, 접근성 ===== */
+const DEMO2='';
+const Q=(q,...r)=>[q,r.map(s=>s.split('|'))];
+const qzf=(q,a,b,c,e)=>({q,o:[a,b,c],a:0,e});
+const SC={
+boss:{n:'일이 너무 많아요',qs:[Q('어떤 점이 가장 힘든가요?','일이 한꺼번에 몰려요.|지금 맡은 일의 개수|지금 하는 일을 모두 적어요.','마감이 너무 빨라요.|새 일의 마감 시간|마감 시간을 물어봐요.','무엇이 먼저인지 모르겠어요.|일의 우선순위|어떤 일이 더 급한지 확인해요.'),Q('상사에게 이야기해 본 적이 있나요?','네, 이야기했어요.|이야기한 뒤 달라진 점|달라졌는지 보고, 그대로면 한 번 더 말해요.','아니요, 아직이요.|말할 수 있는 시간|말할 시간을 정해요.','어떻게 말할지 모르겠어요.|말할 문장|아래 문장을 미리 적어 연습해요.'),Q('도움을 청할 사람이 있나요?','있어요.|도움받을 수 있는 사람|그 사람에게 부탁할 일을 정해요.','잘 모르겠어요.|물어볼 수 있는 사람|물어볼 사람을 한 명 찾아봐요.','없어요.|상담받을 수 있는 곳|상담 창구가 있는지 알아봐요.')],say:['지금 하고 있는 일이 있는데, 어떤 일을 먼저 하면 좋을까요?','이 일은 언제까지 해야 하나요?','제가 할 수 있는 양이 넘을 것 같아요. 우선순위를 알려 주실 수 있을까요?'],bc:['새 일의 마감 시간','일의 우선순위'],ba:['필요하면 도움을 요청해요.'],qz:qzf('새 일을 부탁받았을 때 먼저 확인하면 좋은 것은?','마감 시간과 우선순위','동료의 점심 메뉴','회사 건물의 층수','마감 시간과 우선순위를 알면 무엇부터 할지 정할 수 있어요.')},
+task:{n:'일 내용이 어려워요',qs:[Q('어떤 부분이 어려운가요?','설명이 너무 빨라요.|다시 들어야 할 부분|들은 내용을 메모해요.','모르는 말이 많아요.|모르는 말 목록|모르는 말을 따로 적어요.','순서를 모르겠어요.|일의 순서|일의 순서를 물어봐요.'),Q('모를 때 질문해 봤나요?','네, 해 봤어요.|질문 뒤 이해한 정도|이해한 내용을 내 말로 다시 말해 확인해요.','아니요, 못 했어요.|질문할 시간|질문할 시간을 정해요.','무엇을 물어야 할지 모르겠어요.|모르는 부분|"여기까지는 알겠는데 여기부터 모르겠어요"라고 말해요.'),Q('일을 시작하기 전에 확인하는 방법이 있나요?','있어요.|내 확인 방법|그 방법을 계속 써요.','없어요.|확인할 내용 목록|시작 전에 무엇을, 언제까지, 어떻게 할지 확인해요.')],say:['제가 이해한 게 맞는지 확인하고 싶어요. 다시 한 번 설명해 주실 수 있을까요?','이 말이 무슨 뜻인지 잘 모르겠어요. 쉽게 알려 주실 수 있을까요?','어떤 순서로 하면 좋을까요?'],bc:['무엇을 해야 하는지','언제까지 해야 하는지'],ba:['들은 내용을 내 말로 정리해요.'],qz:qzf('설명을 들은 뒤 하면 좋은 행동은?','들은 내용을 내 말로 다시 말해 확인한다','모르는 채로 시작한다','질문하지 않고 넘어간다','내 말로 다시 말해 보면 제대로 이해했는지 알 수 있어요.')},
+interview:{n:'면접이 막막해요',to:'pint',toL:'면접 연습하러 가기',qs:[Q('어떤 점이 막막한가요?','어떤 질문이 나올지 몰라요.|자주 나오는 질문|자주 나오는 질문 3개를 골라요.','말을 잘 못할까 걱정돼요.|짧게 말하는 연습|한두 문장으로 답을 적어 봐요.','너무 떨려요.|떨릴 때 쓸 방법|천천히 숨 쉬고 천천히 말하기로 정해요.'),Q('면접 연습을 해 본 적이 있나요?','네, 해 봤어요.|연습해 본 내용|잘 안 된 질문을 다시 연습해요.','아니요, 처음이에요.|연습할 시간|면접 연습에서 질문 하나부터 해 봐요.'),Q('준비한 자기소개가 있나요?','있어요.|내 자기소개 내용|소리 내어 읽어 봐요.','없어요.|이름, 장점, 지원 이유|이름, 장점, 지원 이유를 한 문장씩 적어요.')],say:['저는 ○○입니다. 이 일에 관심이 있어 지원했습니다.'],bc:['지원하는 일','나의 장점'],ba:['면접 연습에서 직접 말해 봐요.'],qz:qzf('자기소개에 넣으면 좋은 것은?','이름, 장점, 지원 이유','회사 건물의 층수','어제 먹은 메뉴','자기소개는 내가 누구이고 왜 지원했는지 알려 주는 말이에요.')},
+comm:{n:'말하기가 어려워요',qs:[Q('어떤 상황이 어려운가요?','내 생각을 말하기 어려워요.|말하고 싶은 내용|말하고 싶은 것을 한 문장으로 적어요.','상대 말뜻을 모르겠어요.|상대가 원하는 것|"제가 이해한 게 맞나요?"라고 확인해요.','부탁이나 거절이 어려워요.|부탁하거나 거절할 내용|정중하게 말하는 문장을 정해요.'),Q('어려운 상대는 누구인가요?','상사|상사가 원하는 것|상사에게 물어볼 내용을 정리해요.','동료|동료와 나눌 이야기|편한 시간에 짧게 이야기해요.','여러 사람|이야기할 사람|한 사람에게 먼저 말해 봐요.'),Q('말하기 전에 준비해 본 적이 있나요?','있어요.|준비한 내용|준비한 내용을 보면서 말해요.','아니요.|할 말|할 말을 미리 적어요.')],say:['제 생각은 이렇습니다. 혹시 제가 이해한 게 맞을까요?','제가 잘 이해했는지 확인하고 싶어요. 다시 말씀해 주실 수 있을까요?','지금은 어려울 것 같아요. 대신 이렇게 해도 될까요?'],bc:['말하려는 내용','상대가 원하는 것'],ba:['말한 뒤 어떻게 되었는지 기억해 둬요.'],qz:qzf('말뜻이 헷갈릴 때 좋은 방법은?','내가 이해한 것을 말하며 확인한다','그냥 넘어간다','아무 말도 하지 않는다','내가 이해한 것을 말하면 서로 오해를 줄일 수 있어요.')},
+cover:{n:'자기소개서',to:'pcl',toL:'자기소개서 연습하러 가기',qs:[Q('어디가 어려운가요?','무엇을 써야 할지 모르겠어요.|자기소개서에 들어갈 내용|질문에 하나씩 답해요.','내 경험이 부족해요.|내가 해 본 일|알바, 수업, 활동도 경험으로 적어요.','문장이 어색해요.|고칠 문장|소리 내어 읽고 고쳐요.'),Q('지원할 일이 정해졌나요?','네.|지원하는 일|공고의 하는 일을 읽어요.','아니요.|관심 있는 일|관심 있는 일을 3개 적어요.')],say:['저는 ○○ 경험이 있고, ○○한 점이 장점입니다.'],bc:['지원하는 일','나의 경험','나의 장점'],ba:['자기소개서 연습에서 한 편 써 봐요.'],qz:qzf('자기소개서에 넣기 좋은 것은?','내 경험과 장점','다른 사람의 비밀','회사 주소','내가 해 본 일과 장점이 잘 드러나면 좋아요.')},
+contract:{n:'계약서가 어려워요',to:'pcon',toL:'가상 근로계약서 연습하러 가기',qs:[Q('어디가 어려운가요?','어려운 말이 많아요.|모르는 말|모르는 말을 눌러서 뜻을 확인해요.','급여가 헷갈려요.|세전 급여, 지급일|급여와 지급일을 찾아 표시해요.','근무시간이 헷갈려요.|근무시간, 휴게시간|근무시간과 휴게시간을 찾아 표시해요.'),Q('계약서를 읽어 본 적이 있나요?','네.|읽고 모른 부분|모른 부분에 표시해요.','아니요, 처음이에요.|계약서에 들어가는 항목|급여, 근무시간, 계약기간부터 찾아봐요.')],say:['이 부분이 무슨 뜻인지 설명해 주실 수 있을까요?'],bc:['급여','근무시간','계약기간'],ba:['가상 근로계약서로 연습해 봐요.'],qz:qzf('계약서에서 먼저 확인할 것은?','급여, 근무시간, 계약기간','종이 색','글자체','일의 조건은 급여, 시간, 기간에 들어 있어요.')}};
+const DET=[['contract',/계약|서류|급여명세|임금/],['cover',/자기소개서|자소서/],['interview',/면접/],['boss',/많이|많아|시켜|업무량|야근|바빠|마감/],['comm',/소통|대화|말하|말을|동료|눈치|의사/],['task',/이해|모르|무슨 말|설명|업무 내용|뜻/]];
+const detect=t=>{for(const[k,r]of DET)if(r.test(t))return k;return null};
+const EXS=['상사가 일을 너무 많이 시켜요.','회사에서 하는 일을 이해하기 어려워요.','면접 준비가 막막해요.','직장 동료와 대화하기 어려워요.'];
+const bar=p=>`<div class="prog" role="progressbar" aria-valuenow="${p}" aria-valuemin="0" aria-valuemax="100"><div style="width:${p}%"></div></div>`;
+J={t:'',sc:null,a:[],s:0};
+function jN(){const t=$('jt').value.trim();if(!t){modal('잠깐!','<p>한 줄만 적어 주세요. 예시를 눌러도 돼요.</p>');return}J.t=t;const k=detect(t);if(k){if(k!==J.sc)J.a=[];J.sc=k;J.s=1}else J.s='pick';draw()}
+function jP(k){if(k!==J.sc)J.a=[];J.sc=k;J.s=1;draw()}
+function jA2(i){const sc=SC[J.sc],n=sc.qs.length;let v,c,a;if(i>=0){const o=sc.qs[J.s-1][1][i];v=o[0];c=o[1];a=o[2]}else{v=$('jo').value.trim();if(!v){modal('잠깐!','<p>답을 적거나 보기를 눌러 주세요.</p>');return}c='내가 적은 어려움이 정확히 무엇인지';a='적은 내용을 한 문장으로 정리해요.'}J.a[J.s-1]={t:v,i,c,a};jNext()}
+function jNext(){const n=SC[J.sc].qs.length;J.s=J.s<n?J.s+1:'res';draw()}
+function jGo(){const to=SC[J.sc].to;tab='p';S=[{v:'p0'},{v:to}];if(to==='pint')IV={i:-1};draw()}
+V.ujob=()=>{const s=J.s,sc=SC[J.sc];
+if(s===0)return bar(0)+`<h2>어떤 어려움이 있나요?</h2><p class="sub">짧게 써도 괜찮아요. 예시를 눌러도 돼요.</p>${EXS.map((x,i)=>`<span class="chip" onclick="$('jt').value=EXS[${i}]">${x}</span>`).join('')}<textarea id="jt" aria-label="어려운 점" placeholder="여기에 입력해요">${E(J.t)}</textarea><button class="big" onclick="jN()">다음 →</button>`;
+if(s==='pick')return bar(0)+`<h2>어떤 상황에 가까워요?</h2><p class="sub">내가 쓴 말: ${E(J.t)}</p>${['boss','task','interview','comm'].map(k=>`<button class="opt" onclick="jP('${k}')">${SC[k].n}</button>`).join('')}`;
+const n=sc.qs.length;
+if(s!=='res'){const cur=J.a[s-1];let h=bar(Math.round((s-1)/n*100))+`<p class="pill">질문 ${s}/${n}</p><div class="bub me">${E(J.t)}</div>`;for(let j=0;j<s-1;j++)h+=`<div class="bub">${sc.qs[j][0]}</div><div class="bub me">${E(J.a[j].t)}</div>`;
+return h+`<div class="bub">${sc.qs[s-1][0]}</div>`+sc.qs[s-1][1].map((o,i)=>`<button class="opt ${cur&&cur.i===i?'sel':''}" onclick="jA2(${i})">${o[0]}</button>`).join('')+`<input id="jo" aria-label="직접 입력" placeholder="직접 입력할게요" value="${cur&&cur.i===-1?E(cur.t):''}"><button class="big o" onclick="jA2(-1)">직접 입력으로 답하기</button>${cur?'<button class="big" onclick="jNext()">다음 →</button>':''}`}
+const a=J.a,ch=[...new Set([...sc.bc,...a.map(x=>x.c).filter(Boolean)])],ac=[...new Set([...a.map(x=>x.a).filter(Boolean),...sc.ba])],f=Math.max(0,a[0].i);
+return bar(100)+`<h2>정리했어요 ✨</h2>${DEMO2}<div class="card blk"><h4>① 지금 상황</h4>${E(J.t)}</div><div class="card blk"><h4>② 어려운 점</h4>${a.map(x=>'• '+E(x.t)).join('<br>')}</div><div class="card blk"><h4>③ 확인할 내용</h4>${ch.map(x=>'• '+E(x)).join('<br>')}</div><div class="card blk"><h4>④ 이렇게 해보세요</h4>${ck('j'+J.sc+a.map(x=>x.i).join(''),ac)}</div>${sc.say?`<div class="card blk"><h4>⑤ 이렇게 말해볼 수 있어요</h4>"${sc.say[Math.min(f,sc.say.length-1)]}"</div>`:''}<h3>⑥ 이해도 확인</h3>${quiz('jq'+J.sc,sc.qz)}${sc.to?`<button class="big" onclick="jGo()">${sc.toL} →</button>`:'<div class="note">이 고민은 체크리스트를 하나씩 해 보면서 풀어 가요.</div>'}<button class="big o" onclick="J.s=1;draw()">답변 고치기</button><button class="big o" onclick="J={t:'',sc:null,a:[],s:0};draw()">다른 이야기 하기</button><p class="sm">AI는 대신 판단하지 않아요. 선택은 내가 해요.</p>`};
+/* 연습 연결 정정: ujob 외 경로에서 이해 탭 진입 시 상태 유지 */
+V.u0=()=>`<h2>어떤 점이 어려우신가요?</h2><p class="sub">혼자 고민하지 않아도 괜찮아요. 함께 하나씩 알아봐요.</p>${ic('💼','취업 준비','일자리 찾기부터 면접까지, 고민을 이야기하면 함께 정리해요.',"go('ujob')")}${ic('📄','계약 및 서류','근로계약서, 채용 공고를 쉽게 풀어 드려요.',"go('udoc0')")}`;
+/* 첫 화면 */
+V.intro=()=>`<div class="intro"><div class="logo">🪢</div><h1>줄넘기</h1><p class="slo">어려운 세상의 문턱을 함께 넘어요</p><p class="sub">줄(경계)을 넘는다는 뜻, 줄넘기처럼 반복해 연습하면 해낼 수 있다는 뜻을 담았어요.</p>${ic('💡','① 이해하기','어려운 정보와 상황을 쉽게 알아봐요.',"root('u')")}${ic('🎯','② 연습하기','직접 해 보며 익혀요.',"root('p')")}${ic('🔎','③ 활용하기','필요한 정보를 찾고 경험을 나눠요.',"root('k')")}<button class="big" onclick="root('u')">줄넘기 시작하기 →</button><p class="sm">체험용 프로토타입이에요.</p></div>`;
+/* 접근성: 팝업, 체크리스트 */
+let _op=null,_cb=null;
+function closeM(){const o=document.querySelector('.ov');if(o)o.remove();const f=_cb;_cb=null;if(f)f();if(_op&&_op.focus&&document.contains(_op))_op.focus();_op=null}
+modal=function(t,b,cb){if(document.querySelector('.ov'))closeM();_op=document.activeElement;_cb=cb||null;const o=document.createElement('div');o.className='ov';o.onclick=e=>{if(e.target===o)closeM()};o.innerHTML=`<div role="dialog" aria-modal="true" aria-label="${E(t)}"><h3 style="margin-top:0">${t}</h3>${b}<button class="big" id="mok" onclick="closeM()">확인했어요</button></div>`;$('app').appendChild(o);$('mok').focus()};
+ck=function(k,items){const d=st('ck_'+k,[]);return items.map((x,i)=>`<div class="ck ${d.includes(i)?'d':''}" role="checkbox" aria-checked="${d.includes(i)}" tabindex="0" data-k="${k}" data-i="${i}" onclick="tg('${k}',${i})"><i>${d.includes(i)?'✓':''}</i><span>${E(x)}</span></div>`).join('')};
+tg=function(k,i){let d=st('ck_'+k,[]);d=d.includes(i)?d.filter(x=>x!==i):[...d,i];sv('ck_'+k,d);const e=document.querySelector(`.ck[data-k="${k}"][data-i="${i}"]`);if(e){const on=d.includes(i);e.classList.toggle('d',on);e.setAttribute('aria-checked',on);e.querySelector('i').textContent=on?'✓':''}};
+function toast(m){const t=document.createElement('div');t.className='toast';t.setAttribute('role','status');t.textContent=m;$('app').appendChild(t);setTimeout(()=>t.remove(),1800)}
+document.addEventListener('keydown',e=>{if(document.querySelector('.ov')){if(e.key==='Escape')return closeM();if(e.key==='Tab'){e.preventDefault();$('mok').focus()}return}const t=e.target;if((e.key==='Enter'||e.key===' ')&&t.matches&&t.matches('.ck,.chip,u.t')){e.preventDefault();t.click()}});
+const _d=draw;draw=function(k){_d(k);document.querySelectorAll('.chip,u.t').forEach(e=>{if(!e.hasAttribute('tabindex')){e.tabIndex=0;e.setAttribute('role','button')}})};
+/* 뒤로 가기: 답변 유지 */
+back=function(){const c=S[S.length-1];if(c.v==='ujob'){const n=J.sc?SC[J.sc].qs.length:0;if(J.s==='res'){J.s=n;return draw()}if(typeof J.s==='number'&&J.s>1){J.s--;return draw()}if(J.s===1||J.s==='pick'){J.s=0;return draw()}}
+if(c.v==='pcl'&&CL.s>=0){CL.s--;return draw()}if(c.v==='pint'&&IV.i>=0){IV.i--;IV.f=null;return draw()}if(S.length>1)S.pop();draw()};
+/* 자기소개서 */
+const jo=(w,a,b,l)=>{const m=String(w).replace(/[^가-힣]/g,'');const c=m.slice(-1).charCodeAt(0);if(!(c>=0xAC00&&c<=0xD7A3))return b;const f=(c-0xAC00)%28;return f===0?b:(f===8&&l!==undefined?l:a)};
+const nz=x=>{for(const[r,t]of [[/했어요$/,'했습니다'],[/해요$/,'합니다'],[/이에요$|예요$/,'입니다'],[/있어요$/,'있습니다'],[/없어요$/,'없습니다'],[/같아요$/,'같습니다'],[/좋아요$/,'좋습니다']])if(r.test(x))return x.replace(r,t);return x};
+const isS=x=>/(요|다)$/.test(x);
+CLQ[1]=['해 본 일이 있나요? (알바, 수업, 활동 등)','예: 편의점 알바, 학교 동아리','일이 아니어도 괜찮아요. 맡았던 역할이면 모두 경험이에요.'];CLQ[2]=['내가 잘하는 점은 무엇인가요?','예: 꼼꼼함, 약속을 잘 지킴','잘하는 점은 짧은 말이어도 좋아요.'];CLQ[3]=['왜 이 일을 하고 싶나요?','예: 정리하는 일에 관심이 있어요','이 일에 관심을 갖게 된 이유예요.'];
+const gen=()=>{const[j,e,s,w]=CL.a.map(x=>(x||'').trim().replace(/[.!\s]+$/,''));const q=(p,x)=>`${p} "${x}"`;
+const E2=isS(e)?(nz(e).endsWith('요')?q('제 경험은 다음과 같습니다.',e):nz(e)+'.'):`저는 ${e} 경험이 있습니다.`;
+const S2=isS(s)?(nz(s).endsWith('요')?q('저의 장점은 다음과 같습니다.',s):nz(s)+'. 이것이 저의 장점입니다.'):`저의 장점은 ${s}입니다.`;
+const W2=isS(w)?(nz(w).endsWith('요')?q('지원 이유는 다음과 같습니다.',w):nz(w)+'.'):`${w}${jo(w,'이라는','라는','이라는')} 이유로 지원했습니다.`;
+return `저는 ${j}에 지원하는 지원자입니다.\n${E2}\n${S2}\n${W2}\n${j}${jo(j,'으로서','로서','로서')} 맡은 일을 끝까지 책임지고 하겠습니다.`};
+function cK(){const v=$('ci').value.trim();if(!v){modal('잠깐!','<p>한 줄만 적어 주세요. 도움말 ? 를 눌러 보세요.</p>');return}if(CL.a[CL.s]!==v)CL.out=null;CL.a[CL.s]=v;CL.s++;draw()}
+function cpy(){const t=$('co');t.select();let ok=false;try{ok=document.execCommand('copy')}catch(e){}
+if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t.value).then(()=>toast('복사했어요'),()=>toast(ok?'복사했어요':'글을 길게 눌러 복사해 주세요'));else toast(ok?'복사했어요':'글을 길게 눌러 복사해 주세요')}
+V.pcl=()=>{const n=CLQ.length;if(CL.s<0)return `<h2>자기소개서 쓰기</h2><div class="card">자기소개서는 나를 소개하는 글이에요.<br>① 지원하는 일 ② 경험 ③ 잘하는 점 ④ 지원 이유를 차례로 쓰면 돼요.</div><button class="big" onclick="CL.s=0;draw()">시작하기 →</button>`;
+if(CL.s<n){const q=CLQ[CL.s];return bar(Math.round(CL.s/n*100))+`<p class="pill">질문 ${CL.s+1}/${n}</p><h2>${q[0]}${help('도움말',q[2])}</h2><textarea id="ci" aria-label="답변" placeholder="${q[1]}">${E(CL.a[CL.s]||'')}</textarea><button class="big" onclick="cK()">${CL.s<n-1?'다음 →':'글 만들기 →'}</button>`}
+if(CL.out==null)CL.out=gen();
+return bar(100)+`<h2>예시가 만들어졌어요 ✨</h2>${DEMO2}<p class="sub">내가 쓴 답을 문장으로 이은 예시예요. 아래 글을 직접 고쳐 보세요.</p><textarea id="co" style="min-height:230px" aria-label="자기소개서 편집" oninput="CL.out=this.value">${E(CL.out)}</textarea><div class="row"><button class="big" onclick="cpy()">📋 복사하기</button><button class="big o" onclick="CL.out=null;draw(true)">답변으로 다시 만들기</button></div><p class="sm">다시 만들면 고친 글은 사라져요.</p><h3>내 답변 고치기</h3>${CLQ.map((q,i)=>`<div class="card"><b>${q[0]}</b><br>${E(CL.a[i])}<br><button class="chip" onclick="CL.s=${i};draw()">고치기</button></div>`).join('')}<button class="big o" onclick="IV={i:-1};go('pint')">면접 연습하러 가기</button>`};
+/* 면접 */
+const EL=[[['자기소개',/저는|입니다/],['나의 장점',/장점|꼼꼼|성실|책임|잘합니다|잘해/],['지원한 이유',/관심|때문|싶|위해/]],[['이 일을 하고 싶은 이유',/때문|싶|관심|좋아/],['경험이나 강점과의 연결',/경험|해 봤|해본|알바|살려|잘/],['도움이 되고 싶은 마음',/도움|기여|열심|책임|배우/]],[['스스로 먼저 해 보기',/스스로|먼저|찾아/],['모르면 물어보기',/물어|질문|여쭤|문의/],['정확하게 하려는 태도',/정확|확인|메모|실수/]]];
+function iA2(k){const q=IQ[IV.i];IV.d=IV.d||{};const t=k>=0?q.o[k][0]:$('ii').value.trim();if(t.length<2){modal('잠깐!','<p>답을 한 줄 이상 적어 주세요.</p>');return}IV.d[IV.i]=k>=0?'':t;IV.f={t,r:EL[IV.i].map(e=>[e[0],e[1].test(t)])};draw()}
+V.pint=()=>{const n=IQ.length,s=IV.i;
+if(s<0)return `<h2>면접 연습</h2><div class="card">면접은 회사 사람과 짧게 대화하는 시간이에요.<br>정답은 하나가 아니에요. 천천히, 내 말로 답하면 돼요.</div><button class="big" onclick="IV.i=0;IV.f=null;draw()">시작하기 →</button>`;
+if(s>=n)return bar(100)+`<h2>수고했어요 👏</h2><div class="card">${n}개 질문에 모두 답했어요. 다시 해 보면 더 편해져요.</div><button class="big" onclick="IV.i=0;IV.f=null;draw()">다시 연습하기</button><button class="big o" onclick="root('k')">활용 탭 보기</button>`;
+const q=IQ[s];let h=bar(Math.round(s/n*100))+`<p class="pill">질문 ${s+1}/${n}</p><div class="bub">🎤 ${q.q}${help('도움말',q.h)}</div>`;
+if(IV.f){const ok=IV.f.r.filter(x=>x[1]),no=IV.f.r.filter(x=>!x[1]);return h+`<div class="bub me">${E(IV.f.t)}</div><div class="card blk"><h4>잘한 점</h4>${ok.length?ok.map(x=>`✓ ${x[0]}${jo(x[0],'이','가')} 들어 있어요.`).join('<br>'):'답해 본 것 자체가 좋은 시작이에요.'}</div><div class="card blk"><h4>보완할 점</h4>${no.length?no.map(x=>`• ${x[0]}${jo(x[0],'을','를')} 넣어 보세요.`).join('<br>'):'필요한 내용이 다 들어 있어요. 경험을 하나 더하면 더 좋아요.'}</div><div class="card blk"><h4>답변 예시</h4>${q.ex}</div><p class="sm">좋은 답은 여러 가지예요.</p><button class="big o" onclick="IV.f=null;draw()">다시 시도하기</button><button class="big" onclick="IV.i++;IV.f=null;draw()">다음 질문 →</button>`}
+return h+q.o.map((o,i)=>`<button class="opt" onclick="iA2(${i})">${o[0]}</button>`).join('')+`<textarea id="ii" aria-label="내 답변" placeholder="직접 답해 볼래요">${E((IV.d||{})[s]||'')}</textarea><button class="big o" onclick="iA2(-1)">내 답변 보내기</button>`};
+/* 가상 근로계약서 */
+TERMS[0]=['수습기간','처음 일을 시작하고 적응하는 기간이에요. 이 기간에도 근로계약은 있어요. 급여나 조건이 다른지는 계약서에서 확인해요.','예: 수습기간 3개월이면, 처음 3개월 동안 일을 배우며 지켜봐요.'];
+TERMS[2]=['주휴일','정해진 날에 모두 일하면(보통 주 15시간 이상 일하는 경우), 일주일에 하루는 급여를 받으며 쉬는 날이에요. 계약서에 정해져 있어요.','예: 월~금 모두 출근했다면, 쉬는 날에도 그날 급여가 계산돼요. 조건은 사람마다 다를 수 있어요.'];
+TERMS.push(['우대사항','있으면 도움이 되는 조건이에요. 없어도 지원할 수 있어요.','예: 관련 경험이 있으면 우대'],['학력 무관','학력과 상관없이 지원할 수 있다는 뜻이에요.','예: 고등학교, 대학교 졸업 여부를 묻지 않아요.'],['재고','가게에 남아 있는 물건이에요.','예: 남은 물건의 개수를 세는 일이 재고 확인이에요.'],['진열','물건을 보기 좋게 놓는 일이에요.','예: 선반에 과자를 줄 맞춰 놓아요.']);
+let CV=st('cv',[]);
+function upc(){const n=6,k=CV.length,b=$('cvb');if(b)b.style.width=k/n*100+'%';const t=$('cvn');if(t)t.textContent=k;const d=$('cvd');if(d)d.hidden=k<n;for(let i=0;i<n;i++){const e=$('tm'+i);if(e&&CV.includes(i)){e.classList.add('seen');if(!e.textContent.includes('✓'))e.textContent+=' ✓'}}}
+tm=function(i){const t=TERMS[i];if(!CV.includes(i)){CV.push(i);sv('cv',CV)}upc();modal(t[0],`<p>${t[1]}</p><p class="note">${t[2]}</p><p class="sm">법적인 판단이 아니에요. 걱정되면 상담 기관에 물어봐요.</p>`)};
+const tl=(i,l)=>`<u class="t ${CV.includes(i)?'seen':''}" id="tm${i}" role="button" tabindex="0" onclick="tm(${i})">${l}${CV.includes(i)?' ✓':''}</u>`;
+V.pcon=()=>`<h2>가상 근로계약서 읽기</h2>${DEMO2}<div class="card"><b>이렇게 해 보세요</b><br>① 밑줄 친 말을 눌러요.<br>② 설명을 읽어요.<br>③ 6개를 모두 확인해 봐요. 확인한 말에는 ✓ 가 붙어요.</div><div class="prog"><div id="cvb" style="width:${CV.length/6*100}%"></div></div><p><b>확인한 말 <span id="cvn">${CV.length}</span>/6</b></p><div class="doc"><b>근로계약서(가상)</b><br>1. 근로기간: 2026.12.01부터 (${tl(0,'수습기간')} 3개월)<br>2. 근무장소: 서울 ○○ 사무실<br>3. ${tl(1,'소정근로시간')}: 09:00~18:00 (${tl(4,'휴게시간')} 12:00~13:00)<br>4. 근무일 / ${tl(2,'주휴일')}: 월~금 / 일요일<br>5. 임금: 월 2,200,000원 (${tl(3,'세전 급여')})<br>6. ${tl(5,'지급일')}: 매월 25일</div><div class="note" id="cvd" ${CV.length<6?'hidden':''} style="background:var(--mt)">🎉 학습 완료! 6개 말을 모두 확인했어요. 아래 퀴즈도 풀어 봐요.</div><h3>확인해 봐요</h3>${quiz('c1',{q:'급여는 언제 받나요?',o:['매월 25일','매주 금요일','계약 마지막 날'],a:0,e:'지급일이 매월 25일이라고 적혀 있어요.'})}${quiz('c2',{q:'휴게시간은 언제인가요?',o:['09:00~10:00','12:00~13:00','18:00 이후'],a:1,e:'12:00~13:00가 휴게시간이에요.'})}<button class="big o" onclick="CV=[];sv('cv',CV);draw()">처음부터 다시</button>`;
+/* 서류: 직접 입력 범위 구분, 공고별 문서 */
+DOCS.job0={n:JOBS[0][0],what:'회사가 어떤 사람을 뽑고 싶은지 알리는 글이에요.',cards:[['🧑‍💼','하는 일','서류를 정리하고 문서 작성을 도와요.'],['✅','필요한 조건','학력은 상관없고, 컴퓨터를 기본으로 쓸 수 있어야 해요.'],['⭐','우대사항','관련 경험이 있으면 도움이 돼요. 없어도 지원할 수 있어요.'],['🕘','근무','주 5일, 오전 9시부터 오후 6시까지예요.']],terms:[6,7],checks:['하는 일을 이해했나요?','내가 가진 조건을 확인했나요?','급여를 확인했나요? (공고에 없으면 물어봐요)','궁금한 점을 적어 뒀나요?'],qz:DOCS.job.qz,prac:'면접 질문을 연습해 볼까요?'};
+DOCS.job1={n:JOBS[1][0],what:'회사가 어떤 사람을 뽑고 싶은지 알리는 글이에요.',cards:[['📦','하는 일','물건을 진열하고 재고를 확인해요.'],['✅','필요한 조건','성실하게 일할 수 있는 분을 찾아요.'],['🕘','근무','주 5일 일해요.'],['🔍','공고에 없는 정보','급여와 근무시간이 적혀 있지 않아요. 지원 전에 확인해 보세요.']],terms:[8,9],checks:['하는 일을 이해했나요?','급여와 근무시간을 확인했나요?','궁금한 점을 적어 뒀나요?'],qz:{q:'공고에 급여가 없을 때 좋은 행동은?',o:['지원 전에 물어본다','그냥 지원한다','급여는 안 중요하다고 생각한다'],a:0,e:'중요한 조건은 지원 전에 확인하는 것이 좋아요.'},prac:'면접 질문을 연습해 볼까요?'};
+const _u=V.udoc;V.udoc=p=>{if(p.k!=='custom')return _u(p);const tx=p.text||'',nums=[...new Set(tx.match(/\d[\d,.]*\s*(?:만\s*)?원|\d{1,2}:\d{2}|\d+\s*(?:시간|개월|년|일)/g)||[])],ft=TERMS.filter(t=>tx.includes(t[0]));
+return `<h2>내가 넣은 문서</h2><div class="card blk"><h4>✅ 할 수 있는 일</h4>• 글자 모양으로 금액, 시간, 기간 찾기<br>• 아는 말(예: 수습기간)이 있으면 뜻 보여 주기</div><div class="card blk" style="border-left-color:#e0a050"><h4>⚠️ 할 수 없는 일</h4>• 문서 전체의 뜻 이해와 요약<br>• 계약이 안전한지, 불리한지 판단<br>• 사진 속 글자 읽기</div><h3>내가 넣은 글</h3><div class="doc">${E(tx.slice(0,1000))||'(내용 없음)'}</div><h3>글자 모양으로 찾은 것</h3>${nums.length?nums.map(n=>`<span class="tag">${E(n)}</span> `).join(''):'<p class="sub">찾은 것이 없어요.</p>'}<h3>풀이가 있는 말</h3>${ft.length?ft.map(t=>`<div class="card"><b>${t[0]}</b><p>${t[1]}</p></div>`).join(''):'<p class="sub">풀이가 있는 말을 찾지 못했어요.</p>'}<div class="note">AI가 문서를 읽고 분석한 결과가 아니에요. 중요한 문서는 전문가나 상담 기관에 확인하세요.</div><button class="big" onclick="go('udoc',{k:'contract'})">예시 근로계약서로 체험하기</button>`};
+/* 활용 */
+V.ksup=()=>`<h2>지원 정보</h2><div class="note">🟡 예시 정보 = 아직 검증하지 않은 정보예요.<br>✅ 검증된 정보 = 공식 사이트에서 확인한 날짜가 있는 정보예요. (지금은 없어요)</div>${SUP.map((s,i)=>ic(s[1],s[0],s[2]+' · 🟡 예시',`go('ksupd',{i:${i}})`)).join('')}`;
+V.ksupd=p=>{const s=SUP[p.i],c=(i,t,b)=>`<div class="card blk"><h4>${i} ${t}</h4>${b}</div>`;return `<h2>${s[0]}</h2><span class="tag">🟡 예시 정보 · 검증 전</span>${c('🎁','도움 내용',s[3])}${c('👤','신청 대상',s[4])}${c('📝','신청 방법',s[5])}${c('📎','준비 서류',s[6])}${c('🔗','공식 링크',s[7]?`<a href="${s[7]}" target="_blank" rel="noopener">${s[7]}</a>`:'공식 홈페이지 확인 필요')}${c('📅','최종 확인일','확인 전')}<button class="big" onclick="go('ueasy',{i:${p.i}})">쉽게 이해하기</button>`};
+const EZ=[['일을 찾는 사람 등이 대상이에요. 조건은 바뀔 수 있어요. 내가 해당하는지 공식 기관에 물어봐요.','고용센터에 가거나 인터넷으로 신청해요. 정확한 방법은 공식 홈페이지에서 확인해요.','신분증 등이 필요할 수 있어요. 신청 전에 필요한 서류를 물어봐요.'],['일을 찾는 청년이 대상일 수 있어요. 나이와 조건은 기관마다 달라요.','지역 센터에 전화하거나 방문해서 신청 방법을 물어봐요.','필요한 서류는 센터에 먼저 물어봐요.'],['사는 곳이나 상황에 따라 대상이 달라요. 주민센터에서 상담받을 수 있어요.','주민센터에 가서 어떤 서비스가 있는지 물어봐요.','필요한 서류는 상담할 때 알려 줘요.'],['조건이 서로 달라요. 먼저 내가 해당하는지 물어봐요.','주민센터나 관련 기관에 문의해요.','필요한 서류는 기관마다 달라요. 꼭 물어봐요.']];
+V.ueasy=p=>{const s=SUP[p.i],z=EZ[p.i];return `<h2>${s[0]} 쉽게 보기</h2><div class="note">실제 조건은 공식 기관에서 꼭 확인하세요.</div><div class="card blk"><h4>👤 누가 신청할 수 있나요?</h4>${z[0]}</div><div class="card blk"><h4>📝 어떻게 신청하나요?</h4>${z[1]}</div><div class="card blk"><h4>📎 무엇을 준비하나요?</h4>${z[2]}</div><div class="card blk"><h4>⚠️ 꼭 확인할 것</h4>신청 기간과 조건은 바뀔 수 있어요.</div><h3>체크리스트</h3><div class="card">${ck('s'+p.i,['내가 대상인지 물어봤나요?','신청 방법을 확인했나요?','준비 서류를 확인했나요?','신청 기간을 확인했나요?'])}</div>${quiz('s'+p.i,qzf('신청하기 전에 가장 먼저 할 일은?','공식 기관에서 내가 해당하는지 확인한다','소문만 듣고 신청한다','확인 없이 서류를 낸다','조건은 바뀔 수 있어서 공식 기관에서 먼저 확인해야 해요.'))}`};
+const fx=h=>{let i=0;return h.replace(/onclick="tab='u';S=\[\{v:'u0'\},\{v:'udoc',p:\{k:'job'\}\}\];draw\(\)"/g,()=>`onclick="go('udoc',{k:'job${i++}'})"`)};
+const _kj=V.kjob;V.kjob=()=>fx(_kj());
+V.kjobd=p=>`<h2>${JOBS[p.i][0]}</h2><span class="tag">🟡 예시 공고</span><div class="card">${E(JOBS[p.i][1])}</div><button class="big" onclick="go('udoc',{k:'job${p.i}'})">쉽게 이해하기</button>`;
+/* ===== v3: 이해 탭 '취업 준비' (구직 중심 5개 시나리오) ===== */
+const OLD=Object.assign({},SC);Object.keys(SC).forEach(k=>delete SC[k]);
+const nv=(n,qs,bc,ba,nx,go,qz)=>({n,qs,bc,ba,nx,go,qz});
+SC.find=nv('일자리 찾기',[Q('지금 일자리를 어떻게 찾고 있나요?','아직 찾아본 적이 없어요.|일자리를 찾을 수 있는 곳|취업 정보에서 채용 공고가 어떤 모양인지 살펴봐요.','인터넷으로 봤는데 너무 많아요.|공고를 고르는 기준|내가 원하는 조건을 3가지 적어요.','주변에 물어보고 싶어요.|물어볼 수 있는 사람|물어볼 사람과 질문을 정해요.'),Q('일하고 싶은 곳에 원하는 조건이 있나요?','집에서 가까운 곳이면 좋아요.|출퇴근 거리|집에서 가는 데 걸리는 시간을 확인해요.','천천히 배울 수 있는 곳이면 좋아요.|일을 배우는 방법|공고에서 교육이나 적응 기간이 있는지 봐요.','아직 잘 모르겠어요.|나의 조건|좋았던 활동과 힘들었던 활동을 적어 봐요.'),Q('일자리를 찾을 때 가장 걱정되는 점은?','공고가 어려워요.|공고의 어려운 말|모르는 말은 쉽게 이해하기에서 확인해요.','지원하는 방법을 몰라요.|지원 방법|공고에서 지원 방법이 적힌 문장을 찾아 표시해요.','떨어질까 봐 걱정돼요.|여러 곳에 지원해 볼 수 있다는 점|한 곳만 정하지 말고 몇 곳을 같이 살펴봐요.')],['일자리를 찾을 수 있는 곳','공고에 적힌 하는 일과 조건','지원 방법과 기간'],['관심 가는 공고를 2~3개 골라 저장해요.'],['활용 탭의 취업 정보에서 채용 공고 살펴보기','주변 사람이나 지원 기관에 일자리 찾는 방법 물어보기'],[['취업 정보 보러 가기','jobs']],qzf('공고를 볼 때 먼저 확인하면 좋은 것은?','하는 일, 근무 조건, 지원 방법','회사 건물의 색','공고가 올라온 날의 날씨','하는 일과 조건, 지원 방법을 알아야 내가 지원할 수 있는지 정할 수 있어요.'));
+SC.job=nv('직무 선택',[Q('어떤 일을 해 보고 싶나요?','사무나 서류 정리 같은 일|사무보조가 하는 일|직무 소개에서 사무보조가 하는 일을 읽어 봐요.','물건을 정리하고 관리하는 일|매장 관리 보조가 하는 일|직무 소개에서 매장 관리 보조를 읽어 봐요.','아직 모르겠어요.|나에게 맞는 일을 찾는 방법|여러 일이 하는 일을 읽어 보고 끌리는 것에 표시해요.'),Q('평소에 좋아하거나 잘하는 일이 있나요?','정리하거나 순서대로 하는 일|내가 좋아하는 활동|그 활동과 비슷한 일이 있는지 찾아봐요.','사람들과 이야기하는 일|사람과 함께 일하는 방식|혼자 하는 일과 함께 하는 일 중 편한 쪽을 적어 봐요.','잘 모르겠어요.|내가 해 본 일|학교, 알바, 집에서 해 본 일을 적어 봐요.'),Q('일할 때 가장 걱정되는 점은?','일을 빨리 못 따라갈까 걱정돼요.|일을 배우는 시간|공고에서 교육 시간이 있는지 확인해요.','사람들과 말하기 어려울까 걱정돼요.|하루 중 사람과 말하는 일의 양|직무 소개에서 사람과 말하는 일이 많은지 봐요.','오래 서 있거나 앉아 있기 힘들어요.|일하는 자세와 환경|공고에서 근무 환경을 확인해요.')],['직무가 하는 일','필요한 조건','하루 일과'],['끌리는 일 2~3개를 골라 하는 일을 읽어요.'],['활용 탭의 직무 소개 읽어 보기','끌리는 일의 채용 공고 찾아보기'],[['직무 소개와 취업 정보 보러 가기','jobs']],qzf('나에게 맞는 일을 찾는 좋은 방법은?','여러 일이 하는 일을 읽어 보고 끌리는 것을 골라 본다','다른 사람이 정해 주는 대로 한다','한 번도 알아보지 않는다','직접 알아보고 고르면 내 선택이 돼요. 정답은 하나가 아니에요.'));
+SC.notice=nv('채용 공고 이해',[Q('공고에서 어디가 어려운가요?','어려운 말이 많아요.|공고의 어려운 말|모르는 말을 따로 적고 쉽게 이해하기에서 확인해요.','내가 지원할 수 있는지 모르겠어요.|지원 조건|필요한 조건과 우대사항을 나눠서 읽어요.','하는 일이 무엇인지 모르겠어요.|하는 일|공고의 하는 일 문장을 한 줄로 바꿔 말해 봐요.'),Q('공고를 쉽게 풀어 본 적이 있나요?','아니요, 처음이에요.|공고에 들어 있는 항목|하는 일, 조건, 근무, 지원 방법 순서로 읽어요.','네, 그런데 아직 헷갈려요.|아직 헷갈리는 부분|헷갈리는 부분에 표시해요.'),Q('지원 조건에서 걱정되는 점은?','우대사항이 없어요.|우대사항의 뜻|우대사항은 있으면 좋은 조건이에요. 없어도 지원할 수 있는지 공고에서 확인해요.','경력이 없어요.|경력 없이 지원할 수 있는지|공고에 신입 지원 가능 여부가 있는지 봐요.','근무 조건이 걱정돼요.|근무 시간과 장소|근무 시간과 장소를 따로 적어요.')],['하는 일','지원 조건과 우대사항','근무 조건','지원 방법'],['궁금한 점을 적어 두어요.'],['이해 탭의 계약 및 서류에서 예시 채용 공고 쉽게 풀어 보기','활용 탭의 취업 정보에서 다른 공고 보기'],[['계약 및 서류에서 공고 쉽게 이해하기','docs'],['취업 정보에서 공고 보기','jobs']],qzf('우대사항은 무엇일까요?','있으면 도움이 되는 조건','꼭 있어야 하는 조건','회사의 휴가 일정','우대사항은 꼭 필요한 조건이 아니라 있으면 좋은 점이에요.'));
+SC.cover=Object.assign(OLD.cover,{nx:['연습 탭에서 질문 4개에 답하며 한 편 써 보기','쓴 글을 소리 내어 읽고 고치기'],go:[['자기소개서 연습하러 가기','cover']]});
+SC.interview=Object.assign(OLD.interview,{nx:['연습 탭에서 면접 질문 3개에 답해 보기','자기소개를 한 문장씩 소리 내어 말해 보기'],go:[['면접 연습하러 가기','interview']]});
+DET.length=0;DET.push(['interview',/면접/],['cover',/자기소개서|자소서|경험|뭘 써|무엇을 써|쓸 내용/],['notice',/공고|우대|지원 조건|지원조건|자격|용어/],['find',/일자리|구직|어디서|어디에서|찾아|찾기/],['job',/어떤 일|무슨 일|적성|맞는 일|직무|하고 싶|좋아하는|할지 모르|뭘 해야|무엇을 해야/]);
+EXS.length=0;EXS.push('어디서 일자리를 찾아야 할지 모르겠어요.','어떤 일을 해야 할지 모르겠어요.','채용 공고의 말이 너무 어려워요.','자기소개서에 뭘 써야 할지 모르겠어요.','면접 질문이 걱정돼요.');
+const NAVF={cover:()=>{tab='p';S=[{v:'p0'},{v:'pcl'}]},interview:()=>{tab='p';S=[{v:'p0'},{v:'pint'}];IV={i:-1}},docs:()=>{tab='u';S=[{v:'u0'},{v:'udoc0'}]},jobs:()=>{tab='k';S=[{v:'k0'},{v:'kjob'}]}};
+jGo=function(i){NAVF[SC[J.sc].go[i][1]]();draw()};
+const _uj=V.ujob;V.ujob=()=>{const s=J.s;
+if(s==='pick')return bar(0)+`<h2>어떤 고민에 가까워요?</h2><p class="sub">내가 쓴 말: ${E(J.t)}</p>${Object.keys(SC).map(k=>`<button class="opt" onclick="jP('${k}')">${SC[k].n}</button>`).join('')}`;
+if(s!=='res')return _uj();
+const sc=SC[J.sc],a=J.a,ch=[...new Set([...sc.bc,...a.map(x=>x.c).filter(Boolean)])],ac=[...new Set([...a.map(x=>x.a).filter(Boolean),...sc.ba])];
+return bar(100)+`<h2>정리했어요 ✨</h2>${DEMO2}<div class="card blk"><h4>① 지금 고민하는 점</h4>${E(J.t)}</div><div class="card blk"><h4>② 함께 확인한 내용</h4>${a.map((x,i)=>`• ${sc.qs[i][0]}<br><b>${E(x.t)}</b>`).join('<br>')}</div><div class="card blk"><h4>③ 알아보면 좋은 정보</h4>${ch.map(x=>'• '+E(x)).join('<br>')}</div><div class="card blk"><h4>④ 이렇게 준비해 보세요</h4>${ck('j'+J.sc+a.map(x=>x.i).join(''),ac)}</div><div class="card blk"><h4>⑤ 다음에 해볼 수 있는 활동</h4>${sc.nx.map(x=>'• '+x).join('<br>')}</div><h3>⑥ 이해도 확인</h3>${quiz('jq'+J.sc,sc.qz)}<div class="note">나에게 꼭 맞는 일이나 정답을 AI가 정해 주지 않아요. 알아보고 고르는 것은 내가 해요.</div>${sc.go.map((g,i)=>`<button class="big${i?' o':''}" onclick="jGo(${i})">${g[0]} →</button>`).join('')}<button class="big o" onclick="J.s=1;draw()">답변 고치기</button><button class="big o" onclick="J={t:'',sc:null,a:[],s:0};draw()">다른 이야기 하기</button>`};
+V.intro=()=>`<div class="intro" style="min-height:100%;display:flex;flex-direction:column;padding-top:0"><div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:12px"><svg width="120" height="70" viewBox="0 0 120 70" role="img" aria-label="줄넘기 로고" style="margin:0 auto"><path d="M6 62C18 40 40 18 62 24C80 30 78 52 58 56C38 58 34 34 52 22C70 10 96 8 112 8" fill="none" stroke="#2f80ed" stroke-width="7" stroke-linecap="round"/><path d="M6 62C18 40 40 18 62 24C80 30 78 52 58 56C38 58 34 34 52 22C70 10 96 8 112 8" fill="none" stroke="#9cc9ff" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/></svg><h1 style="font-size:26px;margin:22px 0 14px">줄넘기</h1><p class="slo" style="font-size:19px;margin:0 0 14px">취업 준비, 한 걸음씩 함께해요</p><p class="sub" style="margin:0 0 24px">어려운 취업 정보를 쉽게 이해하고, 직접 연습하며<br>나에게 맞는 일자리를 찾아봐요.</p></div><button class="big" onclick="root('u')">줄넘기 시작하기</button><button class="big o" style="margin-top:0" onclick="enterSM()">서비스 체험해 보기</button></div>`;
+/* ===== v4: 시나리오 체험 모드 / 캡처 모드 ===== */
+let SM={on:false,step:0,cap:false};
+const SMN=['공고 이해','자기소개서','모의 면접','정보 탐색','경험 나눔'];
+const AP={cl:['사무보조','편의점 알바','꼼꼼함','정리하는 일에 관심이 있어요'],iv:{0:'저는 김○○입니다. 정리하는 일에 관심이 있어 지원했습니다.',1:'정리하는 일을 좋아하고, 편의점 알바에서 물건을 정리한 경험이 있어서 지원했습니다. 열심히 배우겠습니다.',2:'모르는 것이 생기면 먼저 스스로 찾아보고, 그래도 어려우면 선배에게 질문하겠습니다. 들은 내용은 메모해서 정확하게 하겠습니다.'}};
+const T=(t,v,p)=>{tab=t;S=[{v:t+'0'}].concat(v?[{v,p:p||{}}]:[])};
+const pidx=()=>Math.max(0,POS.findIndex(q=>q.t==='면접 후기'));
+function seedC(){const x=POS[pidx()];if(x&&x.cm.length===0){x.cm.push('저도 면접이 무서웠는데 연습하니까 괜찮았어요.','모르는 질문은 다시 물어봐도 된다는 말이 도움이 됐어요.');sv('posts',POS)}}
+const ivf=i=>({t:AP.iv[i],r:EL[i].map(e=>[e[0],e[1].test(AP.iv[i])])});
+const CAPS=[['① 이해하기 메뉴',1,()=>T('u')],['② 채용 공고 핵심 정보',1,()=>T('u','udoc',{k:'job0',part:'a'})],['③ 쉬운 용어·체크리스트',1,()=>{sv('ck_djob0',[0,1]);T('u','udoc',{k:'job0',part:'b'})}],['④ 자기소개서 질문',2,()=>{CL={s:0,a:[...AP.cl],out:null};T('p','pcl')}],['⑤ 자기소개서 결과',2,()=>{CL={s:4,a:[...AP.cl],out:null};T('p','pcl')}],['⑥ 모의 면접 질문',3,()=>{IV={i:0,f:null,d:{...AP.iv}};T('p','pint')}],['⑦ 면접 답변 피드백',3,()=>{IV={i:0,d:{...AP.iv},f:ivf(0)};T('p','pint')}],['⑧ 취업·지원 정보 목록',4,()=>T('k','ksup')],['⑨ 지원 제도 상세',4,()=>T('k','ksupd',{i:0})],['⑩ 경험 나눔 게시판',5,()=>T('k','kbd')],['⑪ 게시글 상세·댓글',5,()=>{seedC();T('k','kpost',{i:pidx()})}]];
+const STEPS={0:()=>{tab='u';S=[{v:'sintro'}]},1:()=>T('u'),2:()=>{CL={s:-1,a:[...AP.cl],out:null};T('p','pcl')},3:()=>{IV={i:-1,d:{...AP.iv}};T('p','pint')},4:()=>T('k'),5:()=>{seedC();T('k','kbd')},6:()=>{tab='u';S=[{v:'sdone'}]}};
+function goStep(n){n=Math.max(0,Math.min(6,n));SM.step=n;STEPS[n]();draw()}
+function capGo(v){if(v==='')return;const c=CAPS[+v];SM.step=c[1];c[2]();draw();if(+v===2){try{ans('djob0',1)}catch(e){}}}
+function enterSM(){SM={on:true,step:0,cap:false};CL={s:-1,a:[]};IV={i:-1};J={t:'',sc:null,a:[],s:0};goStep(0)}
+function exitSM(){SM={on:false,step:0,cap:false};$('app').classList.remove('cap');sv('ck_djob0',[]);CL={s:-1,a:[]};IV={i:-1};J={t:'',sc:null,a:[],s:0};root('u')}
+function capOn(){SM.cap=true;$('app').classList.add('cap');draw(true);toast('Esc 키 또는 상단 바 더블클릭으로 캡처 모드 종료')}
+function capOff(){SM.cap=false;$('app').classList.remove('cap');draw(true)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&SM.cap)capOff()});$('top').ondblclick=()=>{if(SM.cap)capOff()};
+const toCL=()=>SM.on?goStep(2):(tab='p',S=[{v:'p0'},{v:'pcl'}],draw());
+const toIV=()=>SM.on?goStep(3):(IV={i:-1},go('pint'));
+const toInfo=()=>SM.on?goStep(4):root('k');
+const toBoard=()=>SM.on?goStep(5):go('kbd');
+const sbe=document.createElement('div');sbe.id='sbar';sbe.hidden=true;$('top').after(sbe);
+function sb(){const e=$('sbar'),s=SM.step;if(!SM.on||SM.cap){e.hidden=true;return}e.hidden=false;e.innerHTML=`<div><b>시연 모드</b> · A씨 · ${s>=1&&s<=5?`STEP ${s}/5 ${SMN[s-1]}`:s===0?'소개':'완료'}</div><div class="dots">${SMN.map((n,i)=>`<button class="${s===i+1?'on':''}" aria-label="STEP ${i+1} ${n}" onclick="goStep(${i+1})">${i+1}</button>`).join('')}</div><div class="row2"><button class="sb" onclick="goStep(SM.step-1)" ${s<=0?'disabled':''}>‹ 이전 단계</button><button class="sb" onclick="goStep(SM.step+1)" ${s>=6?'disabled':''}>다음 단계 ›</button></div><div class="row2"><select aria-label="캡처용 화면" onchange="capGo(this.value)"><option value="">캡처용 화면 선택</option>${CAPS.map((c,i)=>`<option value="${i}">${c[0]}</option>`).join('')}</select><button class="sb" onclick="capOn()">캡처 모드</button><button class="sb" onclick="exitSM()">일반 모드</button></div><div class="smn">화면의 내용은 예시 데이터예요. 실제 AI 분석이 아니에요.</div>`}
+const _d4=draw;draw=function(k){_d4(k);sb()};
+V.sintro=()=>`<h2>A씨의 취업 준비</h2><div class="card">👤 20대 A씨는 경제적으로 자립하기 위해 처음 취업을 준비해요.</div><div class="card">😟 채용 공고가 어렵고, 자기소개서와 면접이 막막해요.</div><div class="card">🎯 목표: 사무보조 일에 지원하기</div><h3>줄넘기와 함께하는 5단계</h3><div class="card">1. 이해하기 – 채용 공고 이해<br>2. 연습하기 – 자기소개서 작성<br>3. 연습하기 – 모의 면접<br>4. 활용하기 – 취업 정보·지원 제도<br>5. 활용하기 – 경험 나눔</div><button class="big" onclick="goStep(1)">체험 시작하기 →</button><button class="big o" onclick="exitSM()">일반 모드로 돌아가기</button><p class="sm">아래 화면의 내용은 모두 예시 데이터예요.</p>`;
+V.sdone=()=>`<h2>체험을 마쳤어요 🎉</h2><div class="card">A씨는 이해 → 연습 → 활용 순서로 취업을 준비했어요.</div>${SMN.map((n,i)=>`<button class="opt" onclick="goStep(${i+1})">STEP ${i+1}. ${n} 다시 보기</button>`).join('')}<button class="big" onclick="exitSM()">일반 모드로 돌아가기</button>`;
+const _u3=V.udoc;V.udoc=p=>{let h=_u3(p);const i=h.indexOf('<h3>어려운 말 풀이</h3>');if(p.part&&i>0){const t=h.match(/<h2>.*?<\/h2>/)[0];h=p.part==='a'?h.slice(0,i)+`<button class="big" onclick="go('udoc',{k:'${p.k}',part:'b'})">쉬운 말 풀이 보기 →</button>`:t+h.slice(i)}if(/^job\d$/.test(p.k||'')&&p.part!=='a')h+=`<button class="big" onclick="toCL()">자기소개서 작성 연습하기 →</button>`;return h};
+const _pc=V.pcl;V.pcl=()=>_pc().replace("IV={i:-1};go('pint')",'toIV()').replace('면접 연습하러 가기','면접 연습하기 →');
+const _pi=V.pint;V.pint=()=>{let h=_pi();if(IV.i>=IQ.length)h=h.replace(`<button class="big o" onclick="root('k')">활용 탭 보기</button>`,`<button class="big" onclick="toInfo()">취업 정보 확인하기 →</button>`);return h};
+const _ks=V.ksup;V.ksup=()=>_ks()+`<button class="big o" onclick="go('kjob')">채용 공고(취업 정보) 보기</button>`;
+const _kj2=V.kjob;V.kjob=()=>_kj2()+`<button class="big o" onclick="go('ksup')">지원 제도(지원 정보) 보기</button>`;
+const _kd=V.ksupd;V.ksupd=p=>_kd(p)+`<button class="big o" onclick="toBoard()">다른 사람의 경험 살펴보기 →</button>`;
+const _kb=V.kbd;V.kbd=()=>_kb().replace('✏️ 글 쓰기','✏️ 나도 경험 공유하기');
+const _kp=V.kpost;V.kpost=p=>_kp(p).replace('<span class="pill">','<span class="tag" style="background:var(--mt)">👤 이용자 경험담 · 공식 정보 아님</span><br><span class="pill">');
+draw();
+</script></body></html>
