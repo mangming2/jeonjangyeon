@@ -240,3 +240,19 @@ input, .sheet textarea { width: 100%; background: var(--card); border: 1.5px sol
 .hero .chip { text-align: left; }
 .home .mi { background: var(--card); box-shadow: var(--shadow); padding: 12px 14px; }
 .home .menu-g { font-size: 15px; }
+
+/* ===== 시연 모드 ===== */
+.sbar { background: var(--mt); padding: 6px 10px 8px; border-bottom: 1px solid var(--bd); font-size: 13px; }
+.sdots { display: flex; gap: 4px; margin: 4px 0; }
+.sdots button { flex: 1; border: 0; border-radius: 8px; padding: 7px 0; background: var(--card); font-weight: 700; }
+.sdots button.on { background: var(--gd); color: #fff; }
+.srow { display: flex; gap: 6px; margin-top: 6px; }
+.sb { flex: 1; border: 1.5px solid var(--g); background: var(--card); border-radius: 10px; padding: 7px 6px; font-size: 13px; }
+.sb:disabled { opacity: 0.4; cursor: default; }
+.sbar select { flex: 1.4; min-width: 0; border: 1.5px solid var(--g); border-radius: 10px; padding: 6px; background: var(--card); color: var(--tx); font: inherit; font-size: 13px; }
+.smn { margin-top: 6px; color: var(--sub); font-size: 12px; }
+.steps5 { margin: 0; padding-left: 20px; }
+/* 캡처 모드: 전체 대화를 한 장에 담을 수 있게 스크롤 영역을 펼침 */
+#app.cap { height: auto; min-height: 100dvh; overflow: visible; }
+#app.cap .thread { overflow: visible; flex: none; }
+.stack > .sub { margin: 0; }

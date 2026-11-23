@@ -1,8 +1,34 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { ApiCtx, useApi, useChat, type Api } from './chat'
+import { ApiCtx, useApi, useChat, type Api, type Demo, type RunOpts } from './chat'
 import { flows } from './flows'
-import { EXS } from './data'
-import { Menu } from './widgets'
+import { EXS, type FlowId } from './data'
+import { DemoBar, Menu, boardPostIndex } from './widgets'
+import { writeStored } from './store'
+
+/* 시연 모드 단계: [흐름, 첫 사용자 말풍선] */
+const STEPS: [FlowId, string | undefined][] = [
+  ['demoIntro', undefined],
+  ['docs', '📄 서류 쉽게 읽기'],
+  ['cover', '✍️ 자기소개서'],
+  ['interview', '🎤 면접'],
+  ['info', '🔎 활용하기'],
+  ['board', '🗣️ 경험 나눔'],
+  ['demoDone', undefined],
+]
+/* 캡처용 화면: [단계, 흐름, 인자, 첫 말풍선, 준비 작업] */
+const CAPS: [number, FlowId, unknown, string, (() => void)?][] = [
+  [1, 'docs', undefined, '📄 서류 쉽게 읽기'],
+  [1, 'doc', { k: 'job0', part: 'a' }, '📢 예시 채용 공고 보기'],
+  [1, 'doc', { k: 'job0', part: 'b', pick: 1 }, '쉬운 말 풀이 보기 →', () => writeStored('ck_djob0', [0, 1])],
+  [2, 'cover', undefined, '✍️ 자기소개서'],
+  [2, 'cover', { auto: true }, '✍️ 자기소개서'],
+  [3, 'interview', undefined, '🎤 면접'],
+  [3, 'interview', { autoFirst: true }, '🎤 면접'],
+  [4, 'support', undefined, '🏛️ 지원 정보'],
+  [4, 'supportDetail', 0, '🎓 국민내일배움카드(예시)'],
+  [5, 'board', undefined, '🗣️ 경험 나눔', boardPostIndex],
+  [5, 'board', { open: true }, '🗣️ 경험 나눔'],
+]
 
 const Logo = ({ size = 120 }: { size?: number }) => (
   <svg width={size} height={size * 0.58} viewBox="0 0 120 70" role="img" aria-label="줄넘기 로고">
@@ -18,7 +44,7 @@ const Avatar = () => (
   </span>
 )
 
-function Intro({ onStart }: { onStart: () => void }) {
+function Intro({ onStart, onDemo }: { onStart: () => void; onDemo: () => void }) {
   return (
     <div className="intro">
       <div className="intro-mid">
@@ -47,7 +73,10 @@ function Intro({ onStart }: { onStart: () => void }) {
       <button className="btn big" onClick={onStart}>
         시작하기
       </button>
-      <p className="sm center">체험용 프로토타입이에요. 실제 AI가 연결되어 있지 않아요.</p>
+      <button className="btn big o" onClick={onDemo}>
+        서비스 체험해 보기
+      </button>
+      <p className="sm center">체험용 프로토타입이에요.</p>
     </div>
   )
 }
@@ -96,7 +125,10 @@ function Home() {
           </div>
         </section>
         <Menu />
-        <p className="sm center">체험용 프로토타입이에요. 실제 AI가 연결되어 있지 않아요.</p>
+        <button className="btn o" onClick={api.enterDemo}>
+          🎬 서비스 체험해 보기 (A씨 시나리오)
+        </button>
+        <p className="sm center">체험용 프로토타입이에요.</p>
       </div>
     </div>
   )
@@ -110,20 +142,63 @@ export default function App() {
   const [sheet, setSheet] = useState<{ title: string; node: ReactNode } | null>(null)
   const [toast, setToast] = useState<string | null>(null)
   const [draft, setDraft] = useState('')
+  const [demo, setDemo] = useState<Demo | null>(null)
+  const demoRef = useRef<Demo | null>(null)
+  demoRef.current = demo
   const endRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
-  const api: Api = useMemo(
-    () => ({
+  const api: Api = useMemo(() => {
+    const go = (id: FlowId, arg: unknown, opts: RunOpts) => {
+      setPage(null)
+      setSheet(null)
+      setView('chat')
+      run(id, arg, opts)
+    }
+    const goStep = (n: number) => {
+      n = Math.max(0, Math.min(6, n))
+      const d = { step: n, cap: demoRef.current?.cap ?? false }
+      demoRef.current = d
+      setDemo(d)
+      if (n === 5) boardPostIndex()
+      const [id, echo] = STEPS[n]
+      go(id, undefined, { clear: true, echo })
+    }
+    const exitDemo = () => {
+      demoRef.current = null
+      setDemo(null)
+      writeStored('ck_djob0', [])
+      stop()
+      setPage(null)
+      setSheet(null)
+      setView('home')
+    }
+    return {
       run: (id, arg, opts) => {
         setView('chat')
         run(id, arg, opts)
       },
       home: () => {
+        if (demoRef.current) return exitDemo()
         stop()
         setPage(null)
         setSheet(null)
         setView('home')
+      },
+      demo: () => demoRef.current,
+      goStep,
+      exitDemo,
+      enterDemo: () => {
+        demoRef.current = { step: 0, cap: false }
+        goStep(0)
+      },
+      capGo: (i: number) => {
+        const [step, id, arg, echo, prep] = CAPS[i]
+        prep?.()
+        const d = { step, cap: demoRef.current?.cap ?? false }
+        demoRef.current = d
+        setDemo(d)
+        go(id, arg, { clear: true, echo, fast: true })
       },
       sheet: (title, node) => setSheet({ title, node }),
       closeSheet: () => setSheet(null),
@@ -132,9 +207,8 @@ export default function App() {
         setToast(m)
         setTimeout(() => setToast(null), 1800)
       },
-    }),
-    [run, stop],
-  )
+    }
+  }, [run, stop])
   apiRef.current = api
 
   useEffect(() => {
@@ -144,6 +218,14 @@ export default function App() {
     else endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [msgs.length, typing, pending])
+
+  const setCap = (cap: boolean) => setDemo((d) => (d ? { ...d, cap } : d))
+  useEffect(() => {
+    if (!demo?.cap) return
+    const f = (e: KeyboardEvent) => e.key === 'Escape' && setCap(false)
+    window.addEventListener('keydown', f)
+    return () => window.removeEventListener('keydown', f)
+  }, [demo?.cap])
 
   useEffect(() => {
     if (!sheet) return
@@ -164,14 +246,14 @@ export default function App() {
 
   return (
     <ApiCtx.Provider value={api}>
-      <div id="app">
+      <div id="app" className={demo?.cap ? 'cap' : ''}>
         {view === 'intro' ? (
-          <Intro onStart={() => setView('home')} />
+          <Intro onStart={() => setView('home')} onDemo={api.enterDemo} />
         ) : view === 'home' ? (
           <Home />
         ) : (
           <>
-            <header className="top">
+            <header className="top" onDoubleClick={() => demo?.cap && setCap(false)}>
               <button className="icon-btn" onClick={api.home} aria-label="메뉴로">
                 ←
               </button>
@@ -181,6 +263,18 @@ export default function App() {
                 <small>{typing ? '입력 중…' : '취업 준비 도우미'}</small>
               </div>
             </header>
+            {demo && !demo.cap && (
+              <DemoBar
+                step={demo.step}
+                onStep={api.goStep}
+                onCap={api.capGo}
+                onCapMode={() => {
+                  setCap(true)
+                  api.toast('Esc 키 또는 상단 바 더블클릭으로 캡처 모드 종료')
+                }}
+                onExit={api.exitDemo}
+              />
+            )}
 
             <main className="thread" aria-live="polite">
               {msgs.map((m) =>

@@ -6,6 +6,7 @@ export type SQ = { q: string; o: Opt[] }
 export type FlowId =
   | 'home' | 'worry' | 'docs' | 'doc' | 'docCustom' | 'cover' | 'interview'
   | 'contract' | 'support' | 'supportDetail' | 'jobs' | 'board'
+  | 'info' | 'demoIntro' | 'demoDone'
 
 const qz = (q: string, a: string, b: string, c: string, e: string): Quiz => ({ q, o: [a, b, c], a: 0, e })
 const Q = (q: string, ...r: string[]): SQ => ({
@@ -220,3 +221,14 @@ export const POS0: Post[] = [
   ['업무 적응', '일 순서 정하기', '할 일을 종이에 적고 하나씩 지웠어요. 마음이 편했어요.', 4],
   ['나만의 팁', '알람 활용', '출근 준비 순서를 알람으로 해 뒀더니 늦지 않아요.', 6],
 ].map(([c, t, b, l]) => ({ c: c as string, t: t as string, b: b as string, l: l as number, cm: [], liked: false }))
+
+/* ===== 시연(체험) 모드: A씨 시나리오 ===== */
+export const SMN = ['공고 이해', '자기소개서', '모의 면접', '정보 탐색', '경험 나눔']
+export const AP = {
+  cl: ['사무보조', '편의점 알바', '꼼꼼함', '정리하는 일에 관심이 있어요'],
+  iv: [
+    '저는 김○○입니다. 정리하는 일에 관심이 있어 지원했습니다.',
+    '정리하는 일을 좋아하고, 편의점 알바에서 물건을 정리한 경험이 있어서 지원했습니다. 열심히 배우겠습니다.',
+    '모르는 것이 생기면 먼저 스스로 찾아보고, 그래도 어려우면 선배에게 질문하겠습니다. 들은 내용은 메모해서 정확하게 하겠습니다.',
+  ],
+}

@@ -1,12 +1,15 @@
 import type { Ctx, Flow, Reply } from './chat'
-import { CLQ, DOCS, EXS, IQ, SC, SUP, TERMS, detect, genCover, jo, type FlowId } from './data'
+import { AP, CLQ, DOCS, EXS, IQ, SC, SMN, SUP, TERMS, detect, genCover, jo, type FlowId } from './data'
 import {
-  Board, ContractDoc, CoverResult, CustomDoc, DocResult, IvFeedback, JobsPage, Note, QuizCard,
-  Step, SupportCard, SupportEasy, WorryResult, resetContract,
+  Board, ContractDoc, CoverResult, CustomDoc, DemoIntro, DocResult, IvFeedback, JobsPage, Note, PostDetail, QuizCard,
+  Step, SupportCard, SupportEasy, WorryResult, boardPostIndex, resetContract,
 } from './widgets'
 
 const HOME: Reply = { label: '🏠 메뉴로', value: 'home' }
-const FLOWS = new Set<string>(['home', 'worry', 'docs', 'cover', 'interview', 'contract', 'support', 'jobs', 'board'])
+const FLOWS = new Set<string>(['home', 'worry', 'docs', 'cover', 'interview', 'contract', 'support', 'jobs', 'board', 'info'])
+
+/** 시연 모드면 다음 단계로, 아니면 해당 흐름으로 가는 선택지 값 */
+const toward = (c: Ctx, step: number, flow: string) => (c.api.demo() ? 'step:' + step : flow)
 
 /** 마지막 선택지: 값이 flow id면 그 흐름으로 이동, 아니면 값을 돌려줌 */
 async function next(c: Ctx, replies: Reply[], input?: { placeholder: string }) {
@@ -16,6 +19,14 @@ async function next(c: Ctx, replies: Reply[], input?: { placeholder: string }) {
     return null
   }
   const [id, arg] = a.value.split(':')
+  if (id === 'step') {
+    c.api.goStep(Number(arg))
+    return null
+  }
+  if (id === 'exitDemo') {
+    c.api.exitDemo()
+    return null
+  }
   if (FLOWS.has(id) || id === 'doc' || id === 'supportDetail') {
     c.run(id as FlowId, arg === undefined ? undefined : id === 'supportDetail' ? Number(arg) : arg)
     return null
@@ -94,10 +105,19 @@ export const flows: Record<FlowId, Flow> = {
   },
 
   async docs(c) {
-    await c.say('어떤 문서를 쉽게 읽어 볼까요?')
+    const demo = !!c.api.demo()
+    await c.say(
+      <>
+        근로계약서, 채용 공고를 쉽게 풀어 드려요. 어떤 문서를 읽어 볼까요?
+        <ul className="dots">
+          <li>📄 예시 근로계약서: 근로계약서의 중요한 내용을 알아봐요.</li>
+          <li>📢 예시 채용 공고: 채용 공고의 중요한 내용을 알아봐요.</li>
+        </ul>
+      </>,
+    )
     const v = await next(c, [
-      { label: '📄 예시 근로계약서', value: 'doc:contract' },
-      { label: '📢 예시 채용 공고', value: 'doc:job0' },
+      { label: '📄 예시 근로계약서 보기', value: 'doc:contract' },
+      { label: '📢 예시 채용 공고 보기', value: 'doc:job0', primary: demo },
       { label: '✍️ 내용 직접 붙여넣기', value: 'paste' },
       { label: '📁 txt 파일 올리기', value: 'file' },
       { label: '📷 사진 올리기', value: 'photo' },
@@ -129,20 +149,32 @@ export const flows: Record<FlowId, Flow> = {
   },
 
   async doc(c, arg) {
-    const k = String(arg)
+    const o = (typeof arg === 'object' && arg ? arg : { k: String(arg) }) as { k: string; part?: 'a' | 'b'; pick?: number }
+    const k = o.k
     const d = DOCS[k]
-    await c.say(
-      <>
-        <b>{d.n}</b>
-        {jo(d.n.replace(/\(.*\)$/, ''), '을', '를')} 쉽게 풀어 볼게요.
-      </>,
-    )
-    await c.say(<DocResult k={k} />, { wide: true, delay: 700 })
+    const isJob = /^job\d$/.test(k)
+    // 시연 모드의 채용 공고는 핵심 정보(a)와 쉬운 말 풀이(b)로 나눠 보여 줌
+    const part = o.part ?? (c.api.demo() && isJob ? 'a' : undefined)
+    if (part !== 'b')
+      await c.say(
+        <>
+          <b>{d.n}</b>
+          {jo(d.n.replace(/\(.*\)$/, ''), '을', '를')} 쉽게 풀어 볼게요.
+        </>,
+      )
+    if (part === 'a') {
+      await c.say(<DocResult k={k} part="a" />, { wide: true, delay: 700 })
+      const v = await next(c, [{ label: '쉬운 말 풀이 보기 →', value: 'b', primary: true }, HOME])
+      if (v !== 'b') return
+    }
+    if (part) await c.say(<DocResult k={k} part="b" pick={o.pick} />, { wide: true, delay: 700 })
+    else await c.say(<DocResult k={k} />, { wide: true, delay: 700 })
     for (;;) {
       const v = await next(c, [
+        ...(isJob ? [{ label: '자기소개서 작성 연습하기 →', value: toward(c, 2, 'cover'), primary: true }] : []),
         { label: '🔁 다시 설명해 줘', value: 'again' },
         { label: '💡 예시로 알려줘', value: 'example' },
-        { label: d.prac[0] + ' →', value: d.prac[1], primary: true },
+        { label: d.prac[0] + ' →', value: d.prac[1], primary: !isJob },
         { label: '📄 다른 문서 보기', value: 'docs' },
         HOME,
       ])
@@ -166,7 +198,9 @@ export const flows: Record<FlowId, Flow> = {
     await next(c, [{ label: '예시 근로계약서로 체험하기 →', value: 'doc:contract', primary: true }, { label: '📄 다른 문서 보기', value: 'docs' }, HOME])
   },
 
-  async cover(c) {
+  async cover(c, arg) {
+    const auto = (arg as { auto?: boolean } | undefined)?.auto
+    const demo = !!c.api.demo()
     await c.say(
       <>
         자기소개서는 나를 소개하는 글이에요.
@@ -182,21 +216,35 @@ export const flows: Record<FlowId, Flow> = {
           {q}
         </>,
       )
+      if (auto) {
+        c.user(AP.cl[i])
+        ans.push(AP.cl[i])
+        continue
+      }
       for (;;) {
-        const a = await c.ask({ replies: [{ label: '💡 도움말', value: 'help' }], input: { placeholder: ph } })
+        const a = await c.ask({
+          replies: [...(demo ? [{ label: `A씨: ${AP.cl[i]}`, value: 'ap', primary: true }] : []), { label: '💡 도움말', value: 'help' }],
+          input: { placeholder: ph },
+        })
         if (a.kind === 'text') {
           ans.push(a.text)
+          break
+        }
+        if (a.value === 'ap') {
+          ans.push(AP.cl[i])
           break
         }
         await c.say(<>💡 {help}</>, { delay: 250 })
       }
     }
-    await c.say('글을 만들었어요 ✨ 내 말투로 고쳐 보세요. 그대로 내지 않아도 괜찮아요.', { delay: 700 })
+    await c.say('예시가 만들어졌어요 ✨ 내 말투로 고쳐 보세요. 그대로 내지 않아도 괜찮아요.', { delay: 700 })
     await c.say(<CoverResult initial={genCover(ans)} />, { wide: true })
-    await next(c, [{ label: '🎤 면접 연습하러 가기 →', value: 'interview', primary: true }, { label: '✍️ 처음부터 다시 쓰기', value: 'cover' }, HOME])
+    await next(c, [{ label: '🎤 면접 연습하기 →', value: toward(c, 3, 'interview'), primary: true }, { label: '✍️ 처음부터 다시 쓰기', value: 'cover' }, HOME])
   },
 
-  async interview(c) {
+  async interview(c, arg) {
+    let autoFirst = (arg as { autoFirst?: boolean } | undefined)?.autoFirst
+    const demo = !!c.api.demo()
     await c.say(
       <>
         면접은 회사 사람과 짧게 대화하는 시간이에요 🎤
@@ -215,17 +263,25 @@ export const flows: Record<FlowId, Flow> = {
           </>,
         )
         let text = ''
-        for (;;) {
+        if (autoFirst) {
+          autoFirst = false
+          text = AP.iv[i]
+          c.user(text)
+        }
+        while (!text) {
           const a = await c.ask({
-            replies: [...q.o.map((o, j) => ({ label: o, value: String(j) })), { label: '💡 도움말', value: 'help' }],
+            replies: [
+              ...(demo ? [{ label: 'A씨 답변: ' + AP.iv[i], value: 'ap', primary: true }] : []),
+              ...q.o.map((o, j) => ({ label: o, value: String(j) })),
+              { label: '💡 도움말', value: 'help' },
+            ],
             input: { placeholder: '직접 답해 볼래요' },
           })
           if (a.kind === 'reply' && a.value === 'help') {
             await c.say(<>💡 {q.h}</>, { delay: 250 })
             continue
           }
-          text = a.kind === 'text' ? a.text : q.o[Number(a.value)]
-          break
+          text = a.kind === 'text' ? a.text : a.value === 'ap' ? AP.iv[i] : q.o[Number(a.value)]
         }
         await c.say(<IvFeedback i={i} text={text} />, { wide: true, delay: 700 })
         const a = await c.ask({
@@ -238,7 +294,12 @@ export const flows: Record<FlowId, Flow> = {
       }
     }
     await c.say(<>수고했어요 👏 {IQ.length}개 질문에 모두 답했어요. 다시 해 보면 더 편해져요.</>)
-    await next(c, [{ label: '🔁 다시 연습하기', value: 'interview' }, { label: '✍️ 자기소개서 쓰기', value: 'cover' }, { label: '🏛️ 지원 정보 보기', value: 'support' }, HOME])
+    await next(c, [
+      { label: '취업 정보 확인하기 →', value: toward(c, 4, 'info'), primary: true },
+      { label: '🔁 다시 연습하기', value: 'interview' },
+      { label: '✍️ 자기소개서 쓰기', value: 'cover' },
+      HOME,
+    ])
   },
 
   async contract(c) {
@@ -271,33 +332,81 @@ export const flows: Record<FlowId, Flow> = {
         <Note>🟡 아래는 모두 예시 정보예요. 실제 신청 전에 공식 기관에서 꼭 확인하세요.</Note>
       </>,
     )
-    await next(c, [...SUP.map((s, i) => ({ label: `${s.i} ${s.n}`, value: 'supportDetail:' + i })), HOME])
+    await next(c, [
+      ...SUP.map((s, i) => ({ label: `${s.i} ${s.n}`, value: 'supportDetail:' + i })),
+      { label: '📢 채용 공고(취업 정보) 보기', value: 'jobs' },
+      HOME,
+    ])
   },
 
   async supportDetail(c, arg) {
     const i = Number(arg)
     await c.say(<b>{SUP[i].n}</b>)
     await c.say(<SupportCard i={i} />, { wide: true })
-    const v = await next(c, [{ label: '쉽게 이해하기 →', value: 'easy', primary: true }, { label: '🏛️ 다른 지원 정보', value: 'support' }, HOME])
+    const board = { label: '🗣️ 다른 사람의 경험 살펴보기 →', value: toward(c, 5, 'board') }
+    const v = await next(c, [{ label: '쉽게 이해하기 →', value: 'easy', primary: true }, board, { label: '🏛️ 다른 지원 정보', value: 'support' }, HOME])
     if (v !== 'easy') return
     await c.say('쉬운 말로 다시 풀어 볼게요.')
     await c.say(<SupportEasy i={i} />, { wide: true })
-    await next(c, [{ label: '🏛️ 다른 지원 정보', value: 'support' }, HOME])
+    await next(c, [{ ...board, primary: true }, { label: '🏛️ 다른 지원 정보', value: 'support' }, HOME])
   },
 
   async jobs(c) {
     c.api.page(<JobsPage />)
     await c.say('취업 정보 화면을 열었어요 📢 공고를 둘러보고 돌아오면 이어서 도와줄게요.')
     for (;;) {
-      const v = await next(c, [{ label: '📢 취업 정보 다시 열기', value: 'reopen', primary: true }, { label: '🎤 면접 연습하기', value: 'interview' }, { label: '💬 고민 정리하기', value: 'worry' }, HOME])
+      const v = await next(c, [
+        { label: '📢 취업 정보 다시 열기', value: 'reopen', primary: true },
+        { label: '🏛️ 지원 제도(지원 정보) 보기', value: 'support' },
+        { label: '🎤 면접 연습하기', value: 'interview' },
+        { label: '💬 고민 정리하기', value: 'worry' },
+        HOME,
+      ])
       if (v !== 'reopen') return
       c.api.page(<JobsPage />)
     }
   },
 
-  async board(c) {
+  async board(c, arg) {
     await c.say('다른 사람들의 경험을 읽고 나눠 봐요 🗣️ 글을 누르면 공감하고 댓글을 달 수 있어요.')
     await c.say(<Board />, { wide: true })
-    await next(c, [{ label: '💬 고민 정리하기', value: 'worry' }, HOME])
+    if ((arg as { open?: boolean } | undefined)?.open) {
+      const i = boardPostIndex()
+      c.api.sheet('면접 후기', <PostDetail i={i} />)
+    }
+    await next(c, [...(c.api.demo() ? [{ label: '체험 마치기 →', value: 'step:6', primary: true }] : []), { label: '💬 고민 정리하기', value: 'worry' }, HOME])
+  },
+
+  /** 활용하기: 취업 정보·지원 제도·경험 나눔 */
+  async info(c) {
+    await c.say('필요한 정보를 찾고 경험을 나눠요. 무엇을 볼까요?')
+    await next(c, [
+      { label: '📢 취업 정보(채용 공고)', value: 'jobs', primary: true },
+      { label: '🏛️ 지원 정보(지원 제도)', value: 'support' },
+      { label: '🗣️ 경험 나눔', value: 'board' },
+      HOME,
+    ])
+  },
+
+  async demoIntro(c) {
+    await c.say(<DemoIntro />, { wide: true })
+    await next(c, [
+      { label: '체험 시작하기 →', value: 'step:1', primary: true },
+      { label: '일반 모드로 돌아가기', value: 'exitDemo' },
+    ])
+  },
+
+  async demoDone(c) {
+    await c.say(
+      <>
+        <b>체험을 마쳤어요 🎉</b>
+        <br />
+        A씨는 이해 → 연습 → 활용 순서로 취업을 준비했어요.
+      </>,
+    )
+    await next(c, [
+      ...SMN.map((n, i) => ({ label: `STEP ${i + 1}. ${n} 다시 보기`, value: 'step:' + (i + 1) })),
+      { label: '일반 모드로 돌아가기', value: 'exitDemo', primary: true },
+    ])
   },
 }

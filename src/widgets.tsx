@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { useApi } from './chat'
 import { useStored, writeStored } from './store'
 import {
-  CATS, DOCS, EL, EZ, IQ, JOBS, POS0, SUP, SUP_QZ, TERMS, jo,
+  CATS, DOCS, EL, EZ, IQ, JOBS, POS0, SMN, SUP, SUP_QZ, TERMS, jo,
   type Doc, type FlowId, type Post, type Quiz, type Scenario,
 } from './data'
 
@@ -10,7 +10,6 @@ import {
 export const Note = ({ children, tone }: { children: ReactNode; tone?: 'ok' | 'warn' }) => (
   <div className={`note ${tone ?? ''}`}>{children}</div>
 )
-export const Demo = () => <Note>🧪 체험용 예시예요. 실제 AI 분석 결과가 아니에요.</Note>
 export const Blk = ({ t, children, warn }: { t: ReactNode; children: ReactNode; warn?: boolean }) => (
   <section className={`blk ${warn ? 'warn' : ''}`}>
     <h4>{t}</h4>
@@ -86,8 +85,8 @@ export function Checklist({ k, items }: { k: string; items: string[] }) {
   )
 }
 
-export function QuizCard({ q }: { q: Quiz }) {
-  const [pick, setPick] = useState<number | null>(null)
+export function QuizCard({ q, pick0 }: { q: Quiz; pick0?: number }) {
+  const [pick, setPick] = useState<number | null>(pick0 ?? null)
   return (
     <div className="quiz">
       <b>📝 확인해 봐요</b>
@@ -154,7 +153,6 @@ export function WorryResult({ text, sc, k, ans }: { text: string; sc: Scenario; 
   const acts = [...new Set([...ans.map((x) => x.a), ...sc.ba])]
   return (
     <div className="stack">
-      <Demo />
       <Blk t="① 지금 고민하는 점">{text}</Blk>
       <Blk t="② 함께 확인한 내용">
         {ans.map((x, i) => (
@@ -180,11 +178,11 @@ export function WorryResult({ text, sc, k, ans }: { text: string; sc: Scenario; 
 }
 
 /* ===== 문서 풀이 ===== */
-export function DocResult({ k }: { k: string }) {
+/** part: 'a' 핵심 정보만, 'b' 쉬운 말 풀이·체크리스트·퀴즈만 (시연 모드용), 없으면 전체 */
+export function DocResult({ k, part, pick }: { k: string; part?: 'a' | 'b'; pick?: number }) {
   const d: Doc = DOCS[k]
-  return (
-    <div className="stack">
-      <Demo />
+  const head = (
+    <>
       <Blk t="이 문서는 무엇인가요?">{d.what}</Blk>
       <div className="cards2">
         {d.cards.map(([ic, t, b]) => (
@@ -195,6 +193,12 @@ export function DocResult({ k }: { k: string }) {
           </div>
         ))}
       </div>
+    </>
+  )
+  if (part === 'a') return <div className="stack">{head}</div>
+  return (
+    <div className="stack">
+      {part !== 'b' && head}
       <Blk t="어려운 말 풀이">
         <p className="sm">눌러서 예시도 볼 수 있어요.</p>
         {d.terms.map((i) => (
@@ -207,7 +211,7 @@ export function DocResult({ k }: { k: string }) {
       <Blk t="체크리스트">
         <Checklist k={'d' + k} items={d.checks} />
       </Blk>
-      <QuizCard q={d.qz} />
+      <QuizCard q={d.qz} pick0={pick} />
       <Note>법적 효력이나 계약의 안전성은 AI가 확정하지 않아요.</Note>
     </div>
   )
@@ -218,7 +222,7 @@ export function CustomDoc({ text }: { text: string }) {
   const found = TERMS.map((t, i) => [t, i] as const).filter(([t]) => text.includes(t[0]))
   return (
     <div className="stack">
-      <Blk t="✅ 체험용에서 할 수 있는 일">
+      <Blk t="✅ 할 수 있는 일">
         <List items={['글자 모양으로 금액, 시간, 기간 찾기', '아는 말(예: 수습기간)이 있으면 뜻 보여 주기']} />
       </Blk>
       <Blk t="⚠️ 할 수 없는 일" warn>
@@ -267,7 +271,7 @@ export function CoverResult({ initial }: { initial: string }) {
   }
   return (
     <div className="stack">
-      <Note>🧪 내가 쓴 답을 문장으로 이은 예시예요. 아래 글을 직접 고쳐 보세요.</Note>
+      <p className="sub">내가 쓴 답을 문장으로 이은 예시예요. 아래 글을 직접 고쳐 보세요.</p>
       <textarea className="editor" value={txt} onChange={(e) => setTxt(e.target.value)} aria-label="자기소개서 편집" />
       <div className="row">
         <button className="btn" onClick={copy}>
@@ -288,7 +292,6 @@ export function IvFeedback({ i, text }: { i: number; text: string }) {
   const no = r.filter((x) => !x[1])
   return (
     <div className="stack">
-      <Note>🧪 체험용 피드백이에요. 정해 둔 말이 들어 있는지만 확인해요.</Note>
       <Blk t="👍 잘한 점">
         {ok.length ? <List items={ok.map(([n]) => `${n}${jo(n, '이', '가')} 들어 있어요.`)} /> : '답해 본 것 자체가 좋은 시작이에요.'}
       </Blk>
@@ -361,7 +364,7 @@ export function SupportEasy({ i }: { i: number }) {
   const z = EZ[i]
   return (
     <div className="stack">
-      <Note>🧪 예시 정보를 쉽게 풀어 쓴 체험용 설명이에요. 실제 조건은 공식 기관에서 꼭 확인하세요.</Note>
+      <Note>실제 조건은 공식 기관에서 꼭 확인하세요.</Note>
       <Blk t="👤 누가 신청할 수 있나요?">{z[0]}</Blk>
       <Blk t="📝 어떻게 신청하나요?">{z[1]}</Blk>
       <Blk t="📎 무엇을 준비하나요?">{z[2]}</Blk>
@@ -408,7 +411,6 @@ export function JobsPage() {
           <div className="job">
             <p>{b}</p>
           </div>
-          <Note>예시 공고예요. 실제 공고가 아니에요.</Note>
           <button className="btn big" onClick={() => easy(sel)}>
             쉽게 이해하기 →
           </button>
@@ -424,7 +426,6 @@ export function JobsPage() {
       {head('취업 정보', close)}
       <div className="page-body">
         <p className="sub">채용 공고와 직무를 살펴봐요.</p>
-        <Note>예시 공고예요. 실제 공고가 아니에요.</Note>
         <h3>📢 채용 공고</h3>
         {JOBS.map(([t, b], i) => (
           <div className="job" key={t}>
@@ -493,12 +494,12 @@ export function Board() {
         </button>
       ))}
       <button className="btn" onClick={() => api.sheet('경험 쓰기', <WritePost onDone={() => setF('전체')} />)}>
-        ✏️ 내 경험 쓰기
+        ✏️ 나도 경험 공유하기
       </button>
     </div>
   )
 }
-function PostDetail({ i }: { i: number }) {
+export function PostDetail({ i }: { i: number }) {
   const api = useApi()
   const [posts, setPosts] = useStored<Post[]>('posts', POS0)
   const [cm, setCm] = useState('')
@@ -506,7 +507,10 @@ function PostDetail({ i }: { i: number }) {
   const upd = (p: Partial<Post>) => setPosts(posts.map((y, j) => (j === i ? { ...y, ...p } : y)))
   return (
     <>
-      <span className="pill">{x.c}</span>
+      <div className="row" style={{ alignItems: 'center', marginBottom: 4 }}>
+        <span className="tag">👤 이용자 경험담 · 공식 정보 아님</span>
+        <span className="pill">{x.c}</span>
+      </div>
       <p className="postbody">{x.b}</p>
       <p className="sm">개인의 경험이며 정답은 아니에요.</p>
       <div className="row">
@@ -570,5 +574,96 @@ function WritePost({ onDone }: { onDone: () => void }) {
         올리기
       </button>
     </>
+  )
+}
+
+/** '면접 후기' 글 위치. 시연용으로 댓글이 없으면 예시 댓글 2개를 채움 */
+export function boardPostIndex() {
+  let posts: Post[] = POS0
+  try {
+    const raw = localStorage.getItem('jn_posts')
+    if (raw) posts = JSON.parse(raw)
+  } catch {
+    /* noop */
+  }
+  const i = Math.max(0, posts.findIndex((p) => p.t === '면접 후기'))
+  if (posts[i] && posts[i].cm.length === 0)
+    writeStored(
+      'posts',
+      posts.map((p, j) => (j === i ? { ...p, cm: ['저도 면접이 무서웠는데 연습하니까 괜찮았어요.', '모르는 질문은 다시 물어봐도 된다는 말이 도움이 됐어요.'] } : p)),
+    )
+  return i
+}
+
+/* ===== 시연 모드 ===== */
+export function DemoIntro() {
+  return (
+    <div className="stack">
+      <h3 style={{ margin: 0 }}>A씨의 취업 준비</h3>
+      <Blk t="👤 A씨">20대 A씨는 경제적으로 자립하기 위해 처음 취업을 준비해요.</Blk>
+      <Blk t="😟 어려운 점">채용 공고가 어렵고, 자기소개서와 면접이 막막해요.</Blk>
+      <Blk t="🎯 목표">사무보조 일에 지원하기</Blk>
+      <Blk t="줄넘기와 함께하는 5단계">
+        <ol className="steps5">
+          <li>이해하기 – 채용 공고 이해</li>
+          <li>연습하기 – 자기소개서 작성</li>
+          <li>연습하기 – 모의 면접</li>
+          <li>활용하기 – 취업 정보·지원 제도</li>
+          <li>활용하기 – 경험 나눔</li>
+        </ol>
+      </Blk>
+      <p className="sm">화면의 내용은 모두 예시 데이터예요.</p>
+    </div>
+  )
+}
+
+/** 시연 모드 상단 바: 단계 이동, 캡처용 화면, 캡처 모드 */
+export const CAPS: string[] = [
+  '① 이해하기 메뉴', '② 채용 공고 핵심 정보', '③ 쉬운 용어·체크리스트', '④ 자기소개서 질문', '⑤ 자기소개서 결과',
+  '⑥ 모의 면접 질문', '⑦ 면접 답변 피드백', '⑧ 취업·지원 정보 목록', '⑨ 지원 제도 상세', '⑩ 경험 나눔 게시판', '⑪ 게시글 상세·댓글',
+]
+export function DemoBar({ step, onStep, onCap, onCapMode, onExit }: { step: number; onStep: (n: number) => void; onCap: (i: number) => void; onCapMode: () => void; onExit: () => void }) {
+  return (
+    <div className="sbar">
+      <div>
+        <b>시연 모드</b> · A씨 · {step >= 1 && step <= 5 ? `STEP ${step}/5 ${SMN[step - 1]}` : step === 0 ? '소개' : '완료'}
+      </div>
+      <div className="sdots">
+        {SMN.map((n, i) => (
+          <button key={n} className={step === i + 1 ? 'on' : ''} aria-label={`STEP ${i + 1} ${n}`} onClick={() => onStep(i + 1)}>
+            {i + 1}
+          </button>
+        ))}
+      </div>
+      <div className="srow">
+        <button className="sb" onClick={() => onStep(step - 1)} disabled={step <= 0}>
+          ‹ 이전 단계
+        </button>
+        <button className="sb" onClick={() => onStep(step + 1)} disabled={step >= 6}>
+          다음 단계 ›
+        </button>
+      </div>
+      <div className="srow">
+        <select
+          aria-label="캡처용 화면"
+          value=""
+          onChange={(e) => e.target.value !== '' && onCap(Number(e.target.value))}
+        >
+          <option value="">캡처용 화면 선택</option>
+          {CAPS.map((c, i) => (
+            <option key={c} value={i}>
+              {c}
+            </option>
+          ))}
+        </select>
+        <button className="sb" onClick={onCapMode}>
+          캡처 모드
+        </button>
+        <button className="sb" onClick={onExit}>
+          일반 모드
+        </button>
+      </div>
+      <div className="smn">화면의 내용은 예시 데이터예요. 실제 AI 분석이 아니에요.</div>
+    </div>
   )
 }
